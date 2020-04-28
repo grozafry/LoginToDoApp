@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
-import { Text, View, TextInput, Image, TouchableOpacity, TouchableHighlight, StyleSheet } from 'react-native';
+import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Back_Arrow from './assets/240px-Back_Arrow.png';
 import Next_Arrow from './assets/240px-Next_Arrow.png';
-import View_Eyes from './assets/240px-View_Eyes_white.png';
+import View_Eyes from './assets/240px-View_Eyes.png';
 
 export default function experimental_login() {
-    let [goBack, setGoBack] = useState(false);
     let [emailCheck, setEmailCheck] = useState(false);
-    let [passwordCheck, setPasswordCheck] = useState(false);
-    let [signUp, setSignUp] = useState(false);
     function login_result() {}
     function success_login() {}
     function failed_login() {}
@@ -16,31 +13,32 @@ export default function experimental_login() {
         // <SafeAreaView>
             <View style={styles.mainBox}>
                 <View style={styles.headerRegion}>
-                    <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" style={styles.backNavigation} onPress={()=> {setGoBack(true)}}>
-                        <Image style={styles.backThumbs} source={Back_Arrow} />
-                    </TouchableHighlight>            
+                    <TouchableOpacity style={styles.backNavigation}>
+                        <Image style={styles.buttonThumbs} source={Back_Arrow} />
+                        {/* <Text style={styles.navText}>go back</Text> */}
+                    </TouchableOpacity>            
                 </View>
                 <View style={styles.bodyBox}>
                     <View style={styles.mainLoginBox}>
                         <Text style={styles.headerLogin}>let's get you signed in!</Text>
                         <View style={styles.emailBox}>
                             <TextInput style={styles.inputEmail} placeholder={'sample_email@email.com'} />
-                            <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" onPress={ () => {setEmailCheck(true)}} style={styles.emailVerify}>
+                            <TouchableOpacity style={styles.emailVerify}>
                                 <Image style={styles.buttonThumbs} source={Next_Arrow} />
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.passwordBox}>
-                            <TextInput secureTextEntry={true} style={styles.inputPassword} placeholderTextColor={'gray'} placeholder={'Input Your Password Here!'}></TextInput>
-                            <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" onPress={ () => {setPasswordCheck(true)}} style={styles.passowrdView}>
-                                <Image style={styles.passThumbs} source={View_Eyes} />
-                            </TouchableHighlight>
+                            <TextInput style={styles.inputPassword} placeholderTextColor={'gray'} placeholder={'Input Your Password Here!'}></TextInput>
+                            <TouchableOpacity style={styles.passowrdView}>
+                                <Image style={styles.buttonThumbs} source={View_Eyes} />
+                            </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.submitButton} underlayColor="#000" onPress={() => alert("Haven't finished this part yet! 😢")}>
+                        <TouchableOpacity style={styles.submitButton}>
                             <Text style={styles.submitButtonText}>login</Text>                            
                         </TouchableOpacity>
                         <View style={styles.signUpBox}>
                             <Text>Don't have any account with us yet?</Text>
-                            <TouchableOpacity style={styles.signUpButton} onPress={() => {setSignUp(true)}}>
+                            <TouchableOpacity style={styles.signUpButton}>
                                 <Text style={styles.signUpButtonText}>sign up!</Text>                                
                             </TouchableOpacity>
                         </View>               
@@ -49,6 +47,7 @@ export default function experimental_login() {
                 <View style={styles.footerRegion}>
                 </View>
             </View>
+        // {/* </SafeAreaView> */}
     );
 }
 
@@ -58,27 +57,26 @@ const styles = StyleSheet.create({
         backgroundColor:'#C9C9C9'
     },
     headerRegion:{
-        paddingHorizontal:10,
         flex:1/10,
-        paddingVertical:10,
-        flexDirection:'row',
-        justifyContent:'flex-start'
+        paddingVertical:10
     },
     backNavigation:{
-        height:35,
-        paddingVertical:5,
+        width:40,
+        height:40,
+        // backgroundColor:'#747474',
+        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        borderRadius:17.5,
+        marginLeft:10,
+        borderRadius:5,
         borderWidth:0,
-        flexDirection:'row',
-        backgroundColor:'white'        
+        paddingHorizontal:10,
     },
     navText:{
         fontFamily:'Candara',
         fontStyle:'italic',
-        fontSize:25,
-        paddingHorizontal:5
+        fontSize:18,
+        paddingHorizontal:10
     },
     bodyBox:{
         flex:8.5/10,
@@ -106,11 +104,11 @@ const styles = StyleSheet.create({
         borderRadius:4,
         width:380,
         height:40,
-        backgroundColor:'white'
+        backgroundColor:'lightblue'
     },
     inputEmail:{
         // borderRadius:4,
-        width:345,
+        width:330,
         height:40,
         justifyContent:'flex-start',
         paddingHorizontal:10,
@@ -119,30 +117,24 @@ const styles = StyleSheet.create({
     emailVerify:{
         justifyContent:"center",
         alignItems:'center',
-        height:35,
-        borderRadius:17.5,
-        marginTop:2.5,
-        marginRight:5
+        paddingHorizontal:10
     },
     passwordBox:{
         flexDirection:'row',
         borderRadius:4,
         width:380,
         height:40,
-        backgroundColor:'black',     
+        backgroundColor:'lightblue'        
     },
     inputPassword:{
         paddingHorizontal:10,
         backgroundColor:'black',
-        width:345,
-        color:'white'         
+        width:330               
     },
     passowrdView:{
         justifyContent:"center",
         alignItems:'center',
-        width:45,
-        borderTopRightRadius:4,
-        borderBottomRightRadius:4,
+        paddingHorizontal:10
     },
     submitButton:{
         height:25,
@@ -182,12 +174,4 @@ const styles = StyleSheet.create({
         height:35,
         width:35,
     },
-    backThumbs: {
-        height:35,
-        width:35,
-        },
-    passThumbs: {
-        height:30,
-        width:30,
-        },
 })
