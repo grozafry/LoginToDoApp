@@ -28,6 +28,7 @@ export default class SavedNote extends Component{
                 deletedTask:'flex',         // removes deleted tasks from view
                 enableEditing:(props.text=='' ? true:false),            //Enables/Disables editing for tasks (a newly created note will be editable) 
                 Edit_Status:(props.text=='' ? Done_Editing:Edit_Task),  // image uri handler for editing state of a task
+                task:props.text
             })
     }
     
@@ -40,10 +41,15 @@ export default class SavedNote extends Component{
 
     // This function prompts user confirmation if user request deletion of a task
     delete_task = () => {
-        Alert.alert('Delete?', "Are you sure you want to delete the task " + this.props.text + '?', [{text:'Confirm', onPress: () => this.setState({
+        if (this.state.task) {
+            Alert.alert('Delete?', "Are you sure you want to delete the task " + this.state.task + '?', [{text:'Confirm', onPress: () => this.setState({
+                'deletedTask':'none'
+            })}, {text:'Deny',}], {cancelable:true} ) 
+        } else {
+            this.setState({
             'deletedTask':'none'
-        })}, {text:'Deny',}], {cancelable:true} ) 
-        
+        })            
+        }
     }
 
     // This function enables editing of a task when edit icon is clicked/touched  
@@ -64,7 +70,7 @@ export default class SavedNote extends Component{
             }
         ])
 
-        var task = this.props.text;    //minimized hussle of entering long variable
+        // var task = this.props.text;    //minimized hussle of entering long variable
         
         //Start return
         return(
@@ -80,7 +86,7 @@ export default class SavedNote extends Component{
 
                     {/* {child} this container shows the task, editable/uneditable if allowed through edit icon ->next child element */}
                     <View style={styles.taskbox}>
-                        <TextInput editable={this.state.enableEditing} defaultValue={task} placeholder={task} placeholderTextColor={'black'} onChangeText={this.state.task} />
+                        <TextInput editable={this.state.enableEditing} defaultValue={this.state.task} placeholder={''} placeholderTextColor={'black'} onChangeText={(task) => this.setState({task})} />
                     </View>
 
                     {/* {child} this button allows the task to be modified [edit_task], has a variable image uri Edit_Status */}
@@ -108,10 +114,10 @@ const styles = StyleSheet.create({
     //main container with all child items
     maincontainer: {
         flex:1,
-        margin:12,
+        margin:8,
         shadowOpacity:0.5,
         flexDirection:'row',
-        height:40,
+        height:45,
         borderRadius:5,
         backgroundColor:'lightgray'
     },

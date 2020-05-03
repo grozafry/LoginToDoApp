@@ -52,3 +52,6 @@ Redirects to Home  - not available yet
 - added feature where an empty task in the list will have editing enabled by default (for future add note function)
 - added note adding function, pressing plus icon on lower right corber will add an empty task
 - improvements - clicking on delete will now prompt confirmation dialog. 
+- (fix) - fixed an issue where during editing a task if you delete the exisiting text, the text will come back as placeholder
+- (fix) - fixed issue where deleting an empty task (only the empty task created by erasing preexisting value) still show confirmation dialog with task detail showing it's original value
+- (changed behaviour) deleting an empty task will not ask for confirmation 
