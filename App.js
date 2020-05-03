@@ -1,25 +1,32 @@
+//App.js
+
+/* This is first screen - Login Screen */
+
 /* importing required modules */
 import React, {useState} from 'react';
-import { Text, View, TextInput, Image, KeyboardAvoidingView, Dimensions, TouchableOpacity,SafeAreaView, TouchableHighlight, StyleSheet } from 'react-native';
+import { Text, View, TextInput, Platform, Image, KeyboardAvoidingView, Dimensions, TouchableOpacity,SafeAreaView, TouchableHighlight, StyleSheet } from 'react-native';
 
 /*Importing Button Images */
 import Back_Arrow from './assets/240px-Back_Arrow.png';
 import Email_Check from './assets/240px-Email_Check.png';
 import Show_Pass from './assets/240px-Show_Pass.png';
 import Hide_Pass from './assets/240px-Hide_Pass.png';
-import SUHP from './assets/AppLayout.png';
 import Verified_Email from './assets/Verified_Email.png';
 
-import users from './users.json'
+/* Importing functions*/
+import HomeScreen from './HomeScreen';
+
+/* Importing list of users*/
+import Users from './users.json'
 
 /*Main Function */
-export default function experimental_login() {
+export default function UserLogin() {
+
     /*List of Messages */
     var messages = ["seems you're not registered with us!", "Please enter an email address first!", "Too Many Failed attempts, Please Try Again in "]
     
     /*   Unused Variables for future Usage*
     let [goBack, setGoBack] = useState(false);
-    let [t, setT] = useState(performance.now()/1000);
     let [signUp, setSignUp] = useState(false);
     */
 
@@ -34,25 +41,32 @@ export default function experimental_login() {
     let [registeredEmail, setRegisteredEmail] = useState('none');     //Enables visibility of login messages if needed.
     let [viewPassword, setViewPassword] = useState(Hide_Pass);     // Image URI source for Password View
     let [goHome, setGoHome] = useState(false); // Goes to Home Screen if true
+    let [userid, setUserId] = useState('');
 
     var pass = '';  //clears exisiting password if email is changed
+    var x;  //extracts key from JSON
 
 
     const [emailEntered, setEmailEntered] = useState('');  //Takes Input for email
     const [passwordEntered, setPasswordEntered] = useState('');   //Takes Input for password
-    const [b, setB] = useState(5);
+    const [b, setB] = useState(5);  //for timer in case of repeated failed attempts
 
 /* verifying email */
     function email_check() {
+        var z = 0;
         if (emailEntered!='') {
-            if (users[emailEntered]){
-                setRegisteredEmail('none');
-                setPassBoxVisibility('flex');
-                setEmailCheckResult(Verified_Email);
-                setEmailCheck(false);
-                setCount(0);
-                setB(5);
-            } else {
+            for (x in Users) {
+                if (Users[x].id==emailEntered) {
+                        setUserId([x]);                
+                        setRegisteredEmail('none');
+                        setPassBoxVisibility('flex');
+                        setEmailCheckResult(Verified_Email);
+                        setEmailCheck(false);
+                        setCount(0);
+                        setB(5);
+                        z = 1;
+            } }
+            if (z==0) {
                 setRegisteredEmail('flex');
                 setCount(count + 1);
                 setResult(messages[0])
@@ -74,17 +88,18 @@ export default function experimental_login() {
             var timeout_3 = setTimeout(setResult, b*1000, '');
             setB(b*2);
             var timeout_4 = setTimeout(setCount, b*1000, 0);
-            setResult(messages[2] + b + '\xa0seconds!');        }
+            setResult(messages[2] + b + '\xa0seconds!');        
+        }
     }
 
 /*End of Email verification*/
 
 /* Password Verification */
     function login_attempt() {
-        if (users[emailEntered]===passwordEntered) {
-            // alert('Aha!');
+        // alert(userid)
+        if (passwordEntered==Users[userid].pwd) {            
             setGoHome(true);
-        } else {
+        } else {    
             alert('Nope!');
         }
     }
@@ -92,20 +107,14 @@ export default function experimental_login() {
 
 /*Sample Home Screen */
     if (goHome) {
+        // alert(userid)
         return (
-            <SafeAreaView>
-                <View style={{flex:1}}>
-                    <Image source={SUHP} style={{resizeMode:'cover', height:Dimensions.get('window').height, width:Dimensions.get('window').width}} />
-                </View>
-            </SafeAreaView>
+            <View style={{flex:1}}>
+                <HomeScreen name={userid}/>
+            </View>
         );
     }
 /*End of Home Screen function */
-    
-/* Unused function 
-    function success_login() {}
-    function failed_login() {}
-*/
 
 /* Password visibility setting */
     function password_visibility() {
@@ -131,88 +140,86 @@ export default function experimental_login() {
 /*Main Return function */    
     return (
         //Main Container
-        <KeyboardAvoidingView style={styles.mainBox} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+        <KeyboardAvoidingView style={styles.mainbox} behavior={Platform.OS == "ios" ? "padding" : "height"}>
 
                 {/*Header region (contains back button)*/}
-                <View style={styles.headerRegion}>
-                
-                {/*Button to go back to unsigned home screen []*/}
-                    <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" style={styles.backNavigation} onPress={()=> alert('Still Working on this one 😢!')}>
-                        <Image style={styles.buttonThumbs} source={Back_Arrow} />
-                    </TouchableHighlight>            
-                </View>
+            <View style={styles.headerregion}>
+            
+            {/*Button to go back to unsigned home screen []*/}
+                <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" style={styles.backnavigation} onPress={()=> alert('Still Working on this one 😢!')}>
+                    <Image style={styles.buttonthumbs} source={Back_Arrow} />
+                </TouchableHighlight>            
+            </View>
 
-                {/*Body (Contain all login elements)*/}
-                <View style={styles.bodyBox}>
-                    <View style={styles.mainLoginBox}>
+            {/*Body (Contain all login elements)*/}
+            <View style={styles.bodybox}>
+                <View style={styles.mainloginbox}>
 
-                {/*Heading Text*/}
-                        <Text style={styles.headerLogin}>let's get you signed in!</Text>
+            {/*Heading Text*/}
+                    <Text style={styles.headerlogin}>let's get you signed in!</Text>
 
-                {/*Email Main Box*/}
-                        <View style={styles.emailBox}> 
+            {/*Email Main Box*/}
+                    <View style={styles.emailbox}> 
 
-                {/*Email Input (can be disabled)*/}
-                            <TextInput disabled={disableEmail} style={styles.inputEmail} placeholder={'sample_email@email.com'}
-                                    onChangeText={emailEntered=>setEmailEntered(emailEntered)}
-                                    onChange={reset_fields}
-                                    defaultValue={emailEntered} />
+            {/*Email Input (can be disabled)*/}
+                        <TextInput disabled={disableEmail} style={styles.inputemail} placeholder={'sample_email@email.com'}
+                                onChangeText={emailEntered=>setEmailEntered(emailEntered)}
+                                onChange={reset_fields}
+                                defaultValue={emailEntered} />
 
-                {/*Email check button [email_check] (with disable and variable image uri)*/}
-                            <TouchableHighlight activeOpacity={1}
-                                disabled={!emailCheck}
-                                underlayColor="#0000CD" onPress={email_check} style={styles.emailVerify}>
-                                    <Image style={styles.buttonThumbs} source={emailCheckResult} />
+            {/*Email check button [email_check] (with disable and variable image uri)*/}
+                        <TouchableHighlight activeOpacity={1}
+                            disabled={!emailCheck}
+                            underlayColor="#0000CD" onPress={email_check} style={styles.emailverify}>
+                                <Image style={styles.buttonthumbs} source={emailCheckResult} />
+                        </TouchableHighlight>
+                    </View>
+
+            {/*Text returning error messages in email verification*/}
+                    <Text style={{color:'darkred', fontStyle:'italic', display:registeredEmail}}>{result}</Text>
+            
+            {/*(Container used for hiding passwordBox until email is verified)*/}
+                    <View style={{display:passBoxVisibility}}>
+            
+            {/*Flexbox for password*/}
+                        <View style={styles.passwordbox}>
+
+            {/*Password Input Box*/}
+                            <TextInput secureTextEntry={!passwordView} style={styles.inputpassword} placeholderTextColor={'gray'}
+                                    placeholder={'Input Your Password Here!'}
+                                    onChangeText={passwordEntered => setPasswordEntered(passwordEntered)}
+                                    defaultValue={passwordEntered}
+                                    ref={input => { pass = input }}
+                                    />
+
+            {/*Button for viewing password [password_visibility] (has a variable image uri)*/}
+                            <TouchableHighlight activeOpacity={1} underlayColor={'#747474'} onPress={password_visibility} style={styles.passwordview}>
+                                <Image style={styles.buttonthumbs} source={viewPassword} />
                             </TouchableHighlight>
                         </View>
+                    </View>
 
-                {/*Text returning error messages in email verification*/}
-                        <Text style={{color:'darkred', fontStyle:'italic', display:registeredEmail}}>{result}</Text>
-                
-                {/*(Container used for hiding passwordBox until email is verified)*/}
-                        <View style={{display:passBoxVisibility}}>
-                
-                {/*Flexbox for password*/}
-                            <View style={styles.passwordBox}>
-
-                {/*Password Input Box*/}
-                                <TextInput secureTextEntry={!passwordView} style={styles.inputPassword} placeholderTextColor={'gray'}
-                                        placeholder={'Input Your Password Here!'}
-                                        onChangeText={passwordEntered => setPasswordEntered(passwordEntered)}
-                                        defaultValue={passwordEntered}
-                                        ref={input => { pass = input }}
-                                        />
-
-                {/*Button for viewing password [password_visibility] (has a variable image uri)*/}
-                                <TouchableHighlight activeOpacity={1} underlayColor={'#747474'} onPress={password_visibility} style={styles.passowrdView}>
-                                    <Image style={styles.buttonThumbs} source={viewPassword} />
-                                </TouchableHighlight>
-                            </View>
-                        </View>
-
-                {/*Button to submit password [login_attempt] (shares the visibility criteria same as password box)*/}
-                        <View style={{display:passBoxVisibility}}>
-                            <TouchableOpacity style={styles.submitButton} underlayColor="#000" onPress={login_attempt}>
-                                <Text style={styles.submitButtonText}>login</Text>                            
-                            </TouchableOpacity>
-                        </View>
-                {/*Button for signing up if the user is not registered and is interested []*/}
-                        <View style={styles.signUpBox}>
-                            <Text>Don't have any account with us yet?</Text>
-                            <TouchableOpacity style={styles.signUpButton} onPress={() => alert('Still working on this one 😢!')}>
-                                <Text style={styles.signUpButtonText}>sign up!</Text>                                
-                            </TouchableOpacity>
-                        </View>
-
+            {/*Button to submit password [login_attempt] (shares the visibility criteria same as password box)*/}
+                    <View style={{display:passBoxVisibility}}>
+                        <TouchableOpacity style={styles.submitbutton} underlayColor="#000" onPress={login_attempt}>
+                            <Text style={styles.submitbuttontext}>login</Text>                            
+                        </TouchableOpacity>
+                    </View>
+            {/*Button for signing up if the user is not registered and is interested []*/}
+                    <View style={styles.signupbox}>
+                        <Text>Don't have any account with us yet?</Text>
+                        <TouchableOpacity style={styles.signupbutton} onPress={() => alert('Still working on this one 😢!')}>
+                            <Text style={styles.signupbuttontext}>sign up!</Text>                                
+                        </TouchableOpacity>
                     </View>
                 </View>
-                {/*End of Main Login Box*/}
-                
-                {/*Footer Region(isn't developed yet)*/} 
-                <View style={styles.footerRegion}>
-                </View>
-                {/*End of footer region*/}
+            </View>
+            {/*End of Main Login Box*/}
             
+            {/*Footer Region(isn't developed yet)*/} 
+            <View style={styles.footerregion}></View>
+            {/*End of footer region*/}
+        
         </KeyboardAvoidingView>
         //End of Main Container
     );
@@ -220,19 +227,18 @@ export default function experimental_login() {
 }
 //End of Main Function
 
+/*Styles (in order of heirarchy)*/
 const styles = StyleSheet.create({
 
     //full container
 
-    mainBox:{
+    mainbox:{
         flex:1,
-        backgroundColor:'#C9C9C9',
-        // marginTop:15,
     },
 
     //top bar
 
-    headerRegion:{
+    headerregion:{
         flex:1/20,
         marginTop:20,
         paddingVertical:10,
@@ -242,21 +248,19 @@ const styles = StyleSheet.create({
 
     //Navigate Back
 
-    backNavigation:{
+    backnavigation:{
         height:35,
         width:35,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:17.5,
         borderWidth:0,
-        shadowOffset:{width:0, height:0},
-        shadowRadius:17.5,
-        shadowOpacity:1, 
+        elevation:2, 
     },
 
     //Navtext [if added]
 
-    navText:{
+    navtext:{
         fontStyle:'italic',
         fontSize:25,
         paddingHorizontal:5,
@@ -264,30 +268,30 @@ const styles = StyleSheet.create({
 
     //main body [contains login box]
 
-    bodyBox:{
+    bodybox:{
         flex:9.25/10,
         alignItems:"center",
-        justifyContent:'center',
+        justifyContent:'flex-start',
+        marginTop:50,
     },
 
     //login box [contains login elements]
 
-    mainLoginBox: {
+    mainloginbox: {
         width:Dimensions.get('window').width*8/9,
         height:Dimensions.get('window').height*4/9,
         backgroundColor:'#747474',
-        justifyContent:'space-evenly',
+        justifyContent:'space-between',
         alignItems:'center',
         borderRadius:10,
-        shadowOffset:{width:-20,height:-20},
-        shadowOpacity:1,
-        shadowRadius:80,
-        shadowColor:'#000000',
+        elevation:2,
+        
+        paddingVertical:10,
     },
 
     //login heading
 
-    headerLogin:{
+    headerlogin:{
         textAlign:'center',
         textAlignVertical:'auto',
         fontStyle:'italic',
@@ -295,31 +299,25 @@ const styles = StyleSheet.create({
         fontSize:20,
         paddingHorizontal:15,
         borderRadius:3,
-        shadowOffset:{width:-2,height:-2},
-        shadowOpacity:1,
-        shadowRadius:8,
-        shadowColor:'#000000',
+        elevation:2,        
     },
 
     //Email input container main
 
-    emailBox:{
+    emailbox:{
         borderRadius:4,
         flexDirection:'row',
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'white',
         height:40,
-        shadowOffset:{width:-2,height:-2},
-        shadowOpacity:1,
-        shadowRadius:8,
-        shadowColor:'#000000',
+        elevation:2,        
         alignContent:'center',
         justifyContent:'center'
     },
 
     //input for email
 
-    inputEmail:{
+    inputemail:{
         width:Dimensions.get('window').width*7.3/9 - 35,
         height:40,
         paddingHorizontal:10,
@@ -328,7 +326,7 @@ const styles = StyleSheet.create({
 
     //button for email verification
 
-    emailVerify:{
+    emailverify:{
         justifyContent:"center",
         alignItems:'center',
         marginTop:2.5,
@@ -339,55 +337,50 @@ const styles = StyleSheet.create({
 
     //Password input container main
 
-    passwordBox:{
+    passwordbox:{
         flexDirection:'row',
         borderRadius:4,
         width:Dimensions.get('window').width*7.5/9,
         height:40,
-        backgroundColor:'#747474',
-        shadowOffset:{width:-2,height:-2},
-        shadowOpacity:1,
-        shadowRadius:8,
-        shadowColor:'#000000',
+        backgroundColor:'gray',
+        elevation:2,        
     },
 
     //input for password
 
-    inputPassword:{
+    inputpassword:{
         paddingHorizontal:10,
         backgroundColor:'black',
         width:Dimensions.get('window').width*7.5/9 - 45,
-        color:'white',       
+        color:'white',
+        borderTopLeftRadius:4,
+        borderBottomLeftRadius:4,       
     },
 
     //button for password view
 
-    passowrdView:{
+    passwordview:{
         justifyContent:"center",
         alignItems:'center',
-        // paddingHorizontal:2,
         width:45,
-        // marginRight:2.5,
         borderTopRightRadius:4,
         borderBottomRightRadius:4,
     },
 
     //button for credential submission
 
-    submitButton:{
+    submitbutton:{
         height:25,
         backgroundColor:'darkblue',
         alignItems:'center',
         justifyContent:'center',
-        shadowOffset:{width:-2,height:-2},
-        shadowOpacity:1,
-        shadowRadius:8,
-        shadowColor:'#000000',
+        elevation:2,
+        
     },
 
     //text style for submit button
 
-    submitButtonText: {
+    submitbuttontext: {
         fontSize:16,
         paddingHorizontal:10,
         color:'white',
@@ -395,7 +388,7 @@ const styles = StyleSheet.create({
 
     //Signup container main
 
-    signUpBox:{
+    signupbox:{
         backgroundColor:'#C9C9C9',
         flexDirection:'row',
         paddingHorizontal:10,
@@ -403,20 +396,17 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:'center',
         borderRadius:3,
-        shadowOffset:{width:-2,height:-2},
-        shadowOpacity:1,
-        shadowRadius:8,
-        shadowColor:'#000000',
+        elevation:2,        
     },
 
     //styles for signup button
 
-    signUpButton:{
+    signupbutton:{
     },
 
     //text style for signup button
 
-    signUpButtonText:{
+    signupbuttontext:{
         color:'darkred',
         fontStyle:'italic',
         paddingLeft:10,
@@ -424,7 +414,7 @@ const styles = StyleSheet.create({
 
     //footer region
 
-    footerRegion:{
+    footerregion:{
         flex:1/40,
         height:25,
         backgroundColor:'steelblue',    
@@ -432,7 +422,7 @@ const styles = StyleSheet.create({
 
     //Thumbnail for buttons
     
-    buttonThumbs:{
+    buttonthumbs:{
         height:35,
         width:35,
     },
