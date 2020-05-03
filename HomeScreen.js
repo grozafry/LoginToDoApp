@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     //Header for Logged In Screen
     userheader: {
         height:60,
-        backgroundColor:'darkgray'
+        backgroundColor:'steelblue'
     },
     flatlistcontainer: {
     },

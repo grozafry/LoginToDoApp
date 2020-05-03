@@ -25,8 +25,8 @@ export default class SavedNote extends Component{
         super()
             this.state = ({
                 Task_Status:TaskNotDone,    //image uri variable for task status
-                DeletedTask:'flex',         // removes deleted tasks from view
-                EnableEditing:(props.text=='' ? true:false),            //Enables/Disables editing for tasks (a newly created note will be editable) 
+                deletedTask:'flex',         // removes deleted tasks from view
+                enableEditing:(props.text=='' ? true:false),            //Enables/Disables editing for tasks (a newly created note will be editable) 
                 Edit_Status:(props.text=='' ? Done_Editing:Edit_Task),  // image uri handler for editing state of a task
             })
     }
@@ -34,14 +34,14 @@ export default class SavedNote extends Component{
     // This function changes image of edit icon based on edit state of a task
     change_status = () => {
         this.setState({
-                'TaskStatus':(this.state.Task_Status==TaskNotDone ? TaskDone:TaskNotDone)
+                'Task_Status':(this.state.Task_Status==TaskNotDone ? TaskDone:TaskNotDone)
             })
         }
 
     // This function prompts user confirmation if user request deletion of a task
     delete_task = () => {
         Alert.alert('Delete?', "Are you sure you want to delete the task " + this.props.text + '?', [{text:'Confirm', onPress: () => this.setState({
-            'DeletedTask':'none'
+            'deletedTask':'none'
         })}, {text:'Deny',}], {cancelable:true} ) 
         
     }
@@ -49,8 +49,8 @@ export default class SavedNote extends Component{
     // This function enables editing of a task when edit icon is clicked/touched  
     edit_task = () => {
             this.setState({
-                'Edit_Status':(this.state.EnableEditing? Edit_Task:Done_Editing),
-                'EnableEditing': (!this.state.EnableEditing),
+                'Edit_Status':(this.state.enableEditing? Edit_Task:Done_Editing),
+                'enableEditing': (!this.state.enableEditing),
             })
     }
 
@@ -60,7 +60,7 @@ export default class SavedNote extends Component{
         //this variable enables to remove tasks when requested to delete
         var mainbox = StyleSheet.flatten([
             styles.maincontainer,{
-                display:this.state.DeletedTask
+                display:this.state.deletedTask
             }
         ])
 
@@ -80,7 +80,7 @@ export default class SavedNote extends Component{
 
                     {/* {child} this container shows the task, editable/uneditable if allowed through edit icon ->next child element */}
                     <View style={styles.taskbox}>
-                        <TextInput editable={this.state.EnableEditing} defaultValue={task} placeholder={task} placeholderTextColor={'black'} onChangeText={this.state.task} />
+                        <TextInput editable={this.state.enableEditing} defaultValue={task} placeholder={task} placeholderTextColor={'black'} onChangeText={this.state.task} />
                     </View>
 
                     {/* {child} this button allows the task to be modified [edit_task], has a variable image uri Edit_Status */}
