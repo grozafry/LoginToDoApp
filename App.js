@@ -255,7 +255,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:17.5,
         borderWidth:0,
-        elevation:2, 
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1}, 
     },
 
     //Navtext [if added]
@@ -284,8 +286,9 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         borderRadius:10,
-        elevation:2,
-        
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1},        
         paddingVertical:10,
     },
 
@@ -299,7 +302,9 @@ const styles = StyleSheet.create({
         fontSize:20,
         paddingHorizontal:15,
         borderRadius:3,
-        elevation:2,        
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1},        
     },
 
     //Email input container main
@@ -310,7 +315,9 @@ const styles = StyleSheet.create({
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'white',
         height:40,
-        elevation:2,        
+        shadowOpacity:0.8, 
+        shadowRadius:2,
+        shadowOffset:{height:0.1},       
         alignContent:'center',
         justifyContent:'center'
     },
@@ -343,7 +350,9 @@ const styles = StyleSheet.create({
         width:Dimensions.get('window').width*7.5/9,
         height:40,
         backgroundColor:'gray',
-        elevation:2,        
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1},        
     },
 
     //input for password
@@ -374,7 +383,9 @@ const styles = StyleSheet.create({
         backgroundColor:'darkblue',
         alignItems:'center',
         justifyContent:'center',
-        elevation:2,
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1},
         
     },
 
@@ -396,7 +407,9 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:'center',
         borderRadius:3,
-        elevation:2,        
+        shadowOpacity:0.8,
+        shadowRadius:2,
+        shadowOffset:{height:0.1},        
     },
 
     //styles for signup button

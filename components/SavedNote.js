@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     maincontainer: {
         flex:1,
         margin:12,
-        elevation:2,
+        shadowOpacity:0.5,
         flexDirection:'row',
         height:40,
         borderRadius:5,

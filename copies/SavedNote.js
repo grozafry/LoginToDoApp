@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
         flex:1,
         margin:12,
         shadowOpacity:0.5,
-        elevation:2,
         flexDirection:'row',
         height:40,
         borderRadius:5,

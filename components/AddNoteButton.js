@@ -53,13 +53,14 @@ const styles = StyleSheet.create({
         backgroundColor:'#0070bb',
         paddingLeft:5,
         paddingTop:5,
-        elevation:2,
+        shadowOpacity:0.8,
     },
 
     //image style
     thumbnail:{
         width:50,
         height:50,
+        shadowOpacity:0.5,
     },
 })
 
