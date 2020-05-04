@@ -8,11 +8,11 @@ import React, { Component } from 'react'
 import {View, TextInput, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
 
 /*Importing Button Images */
-import TaskNotDone from './../assets/task_incomplete.png';   //icon for incomplete task
-import TaskDone from './../assets/task_done.png';            //icon for completed task
-import Delete_Task from './../assets/delete_task.png';       //icon for delete task
-import Edit_Task from './../assets/edit_task.png'            //icon for un-edited task
-import Done_Editing from './../assets/Verified_Email.png'     //icon during task being edited
+import TaskNotDone from './../assets/Task_Incomplete.png';   //icon for incomplete task
+import TaskDone from './../assets/Task_Done.png';            //icon for completed task
+import Delete_Task from './../assets/Delete_Task.png';       //icon for delete task
+import Edit_Task from './../assets/Edit_Task.png'            //icon for un-edited task
+import Done_Editing from './../assets/Edit_Done.png'     //icon during task being edited
 
 /* This function styles and maintains list of items in Tasks passed via HomeScreen.js
 also enables to delete or edit existing items in the tasks list*/
@@ -24,18 +24,26 @@ export default class SavedNote extends Component{
     constructor (props) {
         super()
             this.state = ({
-                Task_Status:TaskNotDone,    //image uri variable for task status
-                deletedTask:'flex',         // removes deleted tasks from view
-                enableEditing:(props.text=='' ? true:false),            //Enables/Disables editing for tasks (a newly created note will be editable) 
+                Task_Status:TaskNotDone,                                //image uri variable for task status
                 Edit_Status:(props.text=='' ? Done_Editing:Edit_Task),  // image uri handler for editing state of a task
-                task:props.text
+
+                enableEditing:(props.text==''),            //Enables/Disables editing for tasks (a newly created note will be editable) 
+                markDoneDisable:(props.text==''),          //adds abiility to prevent marking empty notes as done
+                deleteDisable:false,
+
+                deletedTask:'flex',                                     // removes deleted tasks from view
+                backColor:'lightgray',
+                backColorTaskBox:'transparent',
+                borderLine:0,
+                task:props.text,                                        //temporararily stores task details passed from HomeScreen.js => ./../HomeScreen.js
             })
     }
     
     // This function changes image of edit icon based on edit state of a task
     change_status = () => {
         this.setState({
-                'Task_Status':(this.state.Task_Status==TaskNotDone ? TaskDone:TaskNotDone)
+                'Task_Status':(this.state.Task_Status==TaskNotDone ? TaskDone:TaskNotDone),
+                'backColor': (this.state.Task_Status==TaskNotDone ? 'skyblue':'lightgray'),
             })
         }
 
@@ -55,8 +63,12 @@ export default class SavedNote extends Component{
     // This function enables editing of a task when edit icon is clicked/touched  
     edit_task = () => {
             this.setState({
-                'Edit_Status':(this.state.enableEditing? Edit_Task:Done_Editing),
+                'markDoneDisable': (this.state.task=='' || !this.state.enableEditing),
+                'Edit_Status': (this.state.enableEditing? Edit_Task:Done_Editing),
                 'enableEditing': (!this.state.enableEditing),
+                'backColorTaskBox': (this.state.enableEditing ? 'transparent':'lightblue'),
+                'borderLine': (this.state.enableEditing ? 0:0.5),
+                'deleteDisable':!this.state.enableEditing,
             })
     }
 
@@ -66,12 +78,17 @@ export default class SavedNote extends Component{
         //this variable enables to remove tasks when requested to delete
         var mainbox = StyleSheet.flatten([
             styles.maincontainer,{
-                display:this.state.deletedTask
+                display:this.state.deletedTask,
+                backgroundColor:this.state.backColor
             }
         ])
 
-        // var task = this.props.text;    //minimized hussle of entering long variable
-        
+        var inputtask = StyleSheet.flatten([
+            styles.taskbox, {
+                backgroundColor:this.state.backColorTaskBox,
+                borderWidth:this.state.borderLine,
+            }
+        ])
         //Start return
         return(
             //main Container containing all children items
@@ -79,13 +96,13 @@ export default class SavedNote extends Component{
 
                     {/* {child} this button allows to change task status [change_status], has a variable image uri Task_Status*/}
                     <View style={styles.taskstatusbox}>
-                        <TouchableHighlight onPress={() => this.change_status()} style={styles.taskdone}>
+                        <TouchableHighlight disabled={this.state.markDoneDisable} onPress={() => this.change_status()} style={styles.taskdone}>
                             <Image source={this.state.Task_Status} style={styles.logo} /> 
                         </TouchableHighlight>
                     </View>
 
                     {/* {child} this container shows the task, editable/uneditable if allowed through edit icon ->next child element */}
-                    <View style={styles.taskbox}>
+                    <View style={inputtask}>
                         <TextInput editable={this.state.enableEditing} defaultValue={this.state.task} placeholder={''} placeholderTextColor={'black'} onChangeText={(task) => this.setState({task})} />
                     </View>
 
@@ -95,7 +112,7 @@ export default class SavedNote extends Component{
                     </TouchableOpacity>
 
                     {/* {child} this button allows user to delete a task [delete_task], but not until user confirms in the following confirmation dialog*/}
-                    <TouchableOpacity underlayColor="#000"  style={styles.deletetext} onPress={ () => this.delete_task()}>
+                    <TouchableOpacity disabled={this.state.deleteDisable} underlayColor="#000"  style={styles.deletetext} onPress={ () => this.delete_task()}>
                         <Image source={Delete_Task} style={styles.logo} />                            
                     </TouchableOpacity>
 
@@ -119,7 +136,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         height:45,
         borderRadius:5,
-        backgroundColor:'lightgray'
     },
 
     //box containing task status icon and button
@@ -144,7 +160,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         paddingLeft:5,
         flex:5,
-        borderRightWidth:0.5
+        borderRadius:5
     },
 
     //button containing icon for task edit status

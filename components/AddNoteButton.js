@@ -7,7 +7,7 @@ import React from 'react'
 import {View, Image, TouchableHighlight, StyleSheet} from 'react-native'
 
 /*Importing Button Images */
-import Add_Note from './../assets/add_note.png' //Image uri for Add note button
+import Add_Note from './../assets/Add_Notes.png' //Image uri for Add note button
 
 /* this function enables handling style and input to addnote button*/
 

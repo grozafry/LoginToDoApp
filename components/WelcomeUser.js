@@ -7,8 +7,8 @@ import React, { Component } from 'react'
 import { SafeAreaView, Text, TouchableOpacity, View, Image, StyleSheet, Dimensions } from 'react-native'
 
 /*Importing Button Images */
-import Profile_Image from './../assets/profile_pic.png'  //sample profile logo
-import Settings_User from './../assets/settings.png'   //settings icon
+import Profile_Image from './../assets/Profile_Pic.png'  //sample profile logo
+import Settings_User from './../assets/Settings_Icon.png'   //settings icon
 
 var ms = Dimensions.get('window'); //getting screen dimensions
 

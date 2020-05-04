@@ -7,11 +7,11 @@ import React, {useState} from 'react';
 import { Text, View, TextInput, Platform, Image, KeyboardAvoidingView, Dimensions, TouchableOpacity,SafeAreaView, TouchableHighlight, StyleSheet } from 'react-native';
 
 /*Importing Button Images */
-import Back_Arrow from './assets/240px-Back_Arrow.png';
-import Email_Check from './assets/240px-Email_Check.png';
-import Show_Pass from './assets/240px-Show_Pass.png';
-import Hide_Pass from './assets/240px-Hide_Pass.png';
-import Verified_Email from './assets/Verified_Email.png';
+import Back_Arrow from './assets/Back_Arrow.png';
+import Userid_Check from './assets/Userid_Check.png';
+import Show_Pass from './assets/Show_Pass.png';
+import Hide_Pass from './assets/Hide_Pass.png';
+import Verified_Userid from './assets/Verified_Userid.png';
 
 /* Importing functions*/
 import HomeScreen from './HomeScreen';
@@ -23,7 +23,7 @@ import Users from './users.json'
 export default function UserLogin() {
 
     /*List of Messages */
-    var messages = ["seems you're not registered with us!", "Please enter an email address first!", "Too Many Failed attempts, Please Try Again in "]
+    var messages = ["seems you're not registered with us!", "Please enter a userid address first!", "Too Many Failed attempts, Please Try Again in "]
     
     /*   Unused Variables for future Usage*
     let [goBack, setGoBack] = useState(false);
@@ -33,58 +33,58 @@ export default function UserLogin() {
     /*List of State Variables*/
     let [count, setCount] = useState(0);     //Counter for unauthorised login attempt
     let [result, setResult] = useState('');    //login attempt messages [if needed]
-    let [emailCheckResult, setEmailCheckResult] = useState(Email_Check);    // Image URI source for email check
-    let [disableEmail, setDisableEmail] = useState(false);     //disables email inpyut if counter exceeds
-    let [emailCheck, setEmailCheck] = useState(true);    // Checks if Email is registered or not
+    let [useridCheckResult, setUseridCheckResult] = useState(Userid_Check);    // Image URI source for userid check
+    let [disableUserid, setDisableUserid] = useState(false);     //disables userid input if counter exceeds
+    let [useridCheck, setUseridCheck] = useState(true);    // Checks if Userid is registered or not
     let [passwordView, setPasswordView] = useState(false);    //set whether to show the password
-    let [passBoxVisibility, setPassBoxVisibility] = useState('none');    //enables password box in case email is registered
-    let [registeredEmail, setRegisteredEmail] = useState('none');     //Enables visibility of login messages if needed.
+    let [passBoxVisibility, setPassBoxVisibility] = useState('none');    //enables password box in case userid is registered
+    let [registeredUserid, setRegisteredUserid] = useState('none');     //Enables visibility of login messages if needed.
     let [viewPassword, setViewPassword] = useState(Hide_Pass);     // Image URI source for Password View
     let [goHome, setGoHome] = useState(false); // Goes to Home Screen if true
     let [userid, setUserId] = useState('');
 
-    var pass = '';  //clears exisiting password if email is changed
+    var pass = '';  //clears exisiting password if userid is changed
     var x;  //extracts key from JSON
 
 
-    const [emailEntered, setEmailEntered] = useState('');  //Takes Input for email
+    const [useridEntered, setUseridEntered] = useState('');  //Takes Input for userid
     const [passwordEntered, setPasswordEntered] = useState('');   //Takes Input for password
     const [b, setB] = useState(5);  //for timer in case of repeated failed attempts
 
-/* verifying email */
-    function email_check() {
+/* verifying userid */
+    function userid_check() {
         var z = 0;
-        if (emailEntered!='') {
+        if (useridEntered!='') {
             for (x in Users) {
-                if (Users[x].id==emailEntered) {
+                if (Users[x].id==useridEntered) {
                         setUserId([x]);                
-                        setRegisteredEmail('none');
+                        setRegisteredUserid('none');
                         setPassBoxVisibility('flex');
-                        setEmailCheckResult(Verified_Email);
-                        setEmailCheck(false);
+                        setUseridCheckResult(Verified_Userid);
+                        setUseridCheck(false);
                         setCount(0);
                         setB(5);
                         z = 1;
             } }
             if (z==0) {
-                setRegisteredEmail('flex');
+                setRegisteredUserid('flex');
                 setCount(count + 1);
                 setResult(messages[0])
                 setPassBoxVisibility('none');
-                setEmailCheckResult(Email_Check);
+                setUseridCheckResult(Userid_Check);
             }
         } else {
             setResult(messages[1]);
             setCount(count + 1);
-            setRegisteredEmail('flex');
-            setEmailCheckResult(Email_Check);
+            setRegisteredUserid('flex');
+            setUseridCheckResult(Userid_Check);
         }
 
         if (count > 2) {
-            setEmailCheck(false);
-            setDisableEmail(true);
-            var timeout_1 = setTimeout(setEmailCheck, b*1000, true);
-            var timeout_2 = setTimeout(setDisableEmail, b*1000, false);
+            setUseridCheck(false);
+            setDisableUserid(true);
+            var timeout_1 = setTimeout(setUseridCheck, b*1000, true);
+            var timeout_2 = setTimeout(setDisableUserid, b*1000, false);
             var timeout_3 = setTimeout(setResult, b*1000, '');
             setB(b*2);
             var timeout_4 = setTimeout(setCount, b*1000, 0);
@@ -92,7 +92,7 @@ export default function UserLogin() {
         }
     }
 
-/*End of Email verification*/
+/*End of Userid verification*/
 
 /* Password Verification */
     function login_attempt() {
@@ -127,13 +127,13 @@ export default function UserLogin() {
         }
     }
 
-/* reset passoword fields and hide password box (Invoked when email is changed)*/    
+/* reset passoword fields and hide password box (Invoked when userid is changed)*/    
     function reset_fields() {
         setPasswordEntered('');
         pass.clear();
         setPassBoxVisibility('none');
-        setEmailCheckResult(Email_Check);
-        setEmailCheck(true);
+        setUseridCheckResult(Userid_Check);
+        setUseridCheck(true);
         setResult('');
     }
 
@@ -158,27 +158,27 @@ export default function UserLogin() {
             {/*Heading Text*/}
                     <Text style={styles.headerlogin}>let's get you signed in!</Text>
 
-            {/*Email Main Box*/}
-                    <View style={styles.emailbox}> 
+            {/*Userid Main Box*/}
+                    <View style={styles.useridbox}> 
 
-            {/*Email Input (can be disabled)*/}
-                        <TextInput disabled={disableEmail} style={styles.inputemail} placeholder={'sample_email@email.com'}
-                                onChangeText={emailEntered=>setEmailEntered(emailEntered)}
+            {/*Userid Input (can be disabled)*/}
+                        <TextInput disabled={disableUserid} style={styles.inputuserid} placeholder={'Please enter your user id...'}
+                                onChangeText={useridEntered=>setUseridEntered(useridEntered)}
                                 onChange={reset_fields}
-                                defaultValue={emailEntered} />
+                                defaultValue={useridEntered} />
 
-            {/*Email check button [email_check] (with disable and variable image uri)*/}
+            {/*Userid check button [userid_check] (with disable and variable image uri)*/}
                         <TouchableHighlight activeOpacity={1}
-                            disabled={!emailCheck}
-                            underlayColor="#0000CD" onPress={email_check} style={styles.emailverify}>
-                                <Image style={styles.buttonthumbs} source={emailCheckResult} />
+                            disabled={!useridCheck}
+                            underlayColor="#0000CD" onPress={userid_check} style={styles.useridverify}>
+                                <Image style={styles.buttonthumbs} source={useridCheckResult} />
                         </TouchableHighlight>
                     </View>
 
-            {/*Text returning error messages in email verification*/}
-                    <Text style={{color:'darkred', fontStyle:'italic', display:registeredEmail}}>{result}</Text>
+            {/*Text returning error messages in userid verification*/}
+                    <Text style={{color:'darkred', fontStyle:'italic', display:registeredUserid}}>{result}</Text>
             
-            {/*(Container used for hiding passwordBox until email is verified)*/}
+            {/*(Container used for hiding passwordBox until userid is verified)*/}
                     <View style={{display:passBoxVisibility}}>
             
             {/*Flexbox for password*/}
@@ -256,8 +256,9 @@ const styles = StyleSheet.create({
         borderRadius:17.5,
         borderWidth:0,
         shadowOpacity:0.8,
-        shadowRadius:2,
-        shadowOffset:{height:0.1}, 
+        shadowRadius:8,
+        shadowOffset:{height:0.5},
+        backgroundColor:'#0070bb',
     },
 
     //Navtext [if added]
@@ -286,9 +287,9 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center',
         borderRadius:10,
-        shadowOpacity:0.8,
-        shadowRadius:2,
-        shadowOffset:{height:0.1},        
+        shadowOpacity:1,
+        shadowRadius:5,
+        shadowOffset:{width:8, height:5},        
         paddingVertical:10,
     },
 
@@ -302,38 +303,38 @@ const styles = StyleSheet.create({
         fontSize:20,
         paddingHorizontal:15,
         borderRadius:3,
-        shadowOpacity:0.8,
+        shadowOpacity:1,
         shadowRadius:2,
-        shadowOffset:{height:0.1},        
+        shadowOffset:{height:2},        
     },
 
-    //Email input container main
+    //Userid input container main
 
-    emailbox:{
+    useridbox:{
         borderRadius:4,
         flexDirection:'row',
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'white',
         height:40,
-        shadowOpacity:0.8, 
-        shadowRadius:2,
+        shadowOpacity:1, 
+        shadowRadius:5,
         shadowOffset:{height:0.1},       
         alignContent:'center',
         justifyContent:'center'
     },
 
-    //input for email
+    //input for userid
 
-    inputemail:{
+    inputuserid:{
         width:Dimensions.get('window').width*7.3/9 - 35,
         height:40,
         paddingHorizontal:10,
         backgroundColor:'white',
     },
 
-    //button for email verification
+    //button for userid verification
 
-    emailverify:{
+    useridverify:{
         justifyContent:"center",
         alignItems:'center',
         marginTop:2.5,
@@ -350,8 +351,8 @@ const styles = StyleSheet.create({
         width:Dimensions.get('window').width*7.5/9,
         height:40,
         backgroundColor:'gray',
-        shadowOpacity:0.8,
-        shadowRadius:2,
+        shadowOpacity:1, 
+        shadowRadius:5,
         shadowOffset:{height:0.1},        
     },
 
@@ -383,8 +384,8 @@ const styles = StyleSheet.create({
         backgroundColor:'darkblue',
         alignItems:'center',
         justifyContent:'center',
-        shadowOpacity:0.8,
-        shadowRadius:2,
+        shadowOpacity:1, 
+        shadowRadius:5,
         shadowOffset:{height:0.1},
         
     },

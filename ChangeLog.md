@@ -54,4 +54,7 @@ Redirects to Home  - not available yet
 - improvements - clicking on delete will now prompt confirmation dialog. 
 - (fix) - fixed an issue where during editing a task if you delete the exisiting text, the text will come back as placeholder
 - (fix) - fixed issue where deleting an empty task (only the empty task created by erasing preexisting value) still show confirmation dialog with task detail showing it's original value
-- (changed behaviour) deleting an empty task will not ask for confirmation 
+- (changed behaviour) deleting an empty task will not ask for confirmation
+- (changed bahaviour) removed behaviour where an empty task can be marked as done
+- (fix) removed bahavious where a task could be marked as done during editing - this allowed user to bypass diable mark done for empty strings
+- (changed bahaviour) removed bahviour where a task could be deleted during editing  
