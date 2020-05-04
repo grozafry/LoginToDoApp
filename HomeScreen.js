@@ -14,6 +14,13 @@ import AddNoteButton from './components/AddNoteButton'  //Button to add notes
 //imprting list of tasks
 import Tasks from './tasks.json'
 
+//New function
+const Task_ID = () => { 
+    var n0 =1; 
+    for(var i=1; i<nd; i++) n0 +='0'; 
+    return Math.floor((1*n0) + Math.random() * (9*n0)); 
+   }
+
 
  /*This is the Home Screen Component - accessible after user inputs correct id and password*/
 
@@ -24,17 +31,18 @@ export default class HomeScreen extends Component{
     constructor() {
         super()
         this.state={
-            count:0, //Initial count of tasks in task.json
+            taskid:Math.floor(Math.random()*1000), //Initial taskid of tasks in task.json
         }
     }
 
-    // This function adds a new task with key value (count) and empty content value
+    // This function adds a new task with random key value (taskid) and empty content value
     add_newtask = () => {
         this.setState({
-            'count':this.state.count + 0.01  //Each time a task is run, count increments by 1
+            'taskid':Math.floor(Math.random()*1000)  //Each time a task is run, taskid increments by 1
         })
 
-        Tasks['id1'].push({"key":this.state.count, "content":""});   // Pushing new task to list of Tasks
+        Tasks['id1'].push({"key":this.state.taskid, "content":""});   // Pushing new task to list of Tasks
+        // alert(this.state.taskid)
     }    
 
     /*Beginning of render function*/
@@ -63,8 +71,12 @@ export default class HomeScreen extends Component{
                     this lists is optimised with Flatlist componenet and SavedNotes function => ./component/SavedNote.js
                     included function - [delete notes, edit notes, check notes] */}
                         <View style={styles.flatlistcontainer}>
-                            <FlatList showsVerticalScrollIndicator={false}  contentInset= {{bottom: 120}} data={mytask} renderItem={
-                                ({item}) => <SavedNote text={item.content} keyExtractor={item => item.index_id.toString()} /> } />
+                            <FlatList inverted ref={ref => this.flatList = ref} showsVerticalScrollIndicator={false}
+                                onContentSizeChange={() => this.flatList.scrollToEnd({animated: false})}
+                                onLayout={() => this.flatList.scrollToEnd({animated: true})}
+                                contentInset= {{top: 120}} data={mytask} renderItem={({item}) => 
+                                <SavedNote text={item.content} id={item.key} /> }
+                                    />
                         </View>
                     </View>
 

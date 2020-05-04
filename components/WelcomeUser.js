@@ -21,24 +21,24 @@ export default class WelcomeUser extends Component {
   constructor() {
     super()
     this.state = {
-      profileMenu:'none',   //
+      profileMenu:'flex',   //
       shadowOpacityValue:0,
       backColor:'transparent',
     }
   }
 
-  // This functions expands profile icon to profile options if profileMenu:'flex', clicking again will undo the changes 
+  // This functions expands profile icon to profile options if profileMenu:'none', clicking again will undo the changes 
   profile_menu = () => {
-    if (this.state.profileMenu=='none') {
+    if (this.state.profileMenu=='flex') {
       this.setState({
-        'profileMenu':'flex',
+        'profileMenu':'none',
         'shadowOpacityValue': 1,
         'backColor':'lightblue'
 
       })
     } else {
       this.setState({
-        'profileMenu':'none',
+        'profileMenu':'flex',
         'shadowOpacityValue':0,
         'backColor':'transparent'
       })        
@@ -121,7 +121,7 @@ export default class WelcomeUser extends Component {
 const styles = StyleSheet.create({
   maincontainer:{
     marginVertical:5,
-    flex:1,
+    none:1,
     alignItems:'center',
     backgroundColor:'transparent',
   },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     width:ms.width*9.5/10,
     height:50,
     borderRadius:25,
-    flexDirection:'row',
+    noneDirection:'row',
     alignItems:'center'
   },
   piccontainer:{
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   seccontainer: {
       width:ms.width*9.5/10 - 50,
-      flexDirection:'row',
+      noneDirection:'row',
       alignItems:'center',
       justifyContent:"space-between",
   },

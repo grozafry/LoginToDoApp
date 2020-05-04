@@ -57,4 +57,7 @@ Redirects to Home  - not available yet
 - (changed behaviour) deleting an empty task will not ask for confirmation
 - (changed bahaviour) removed behaviour where an empty task can be marked as done
 - (fix) removed bahavious where a task could be marked as done during editing - this allowed user to bypass diable mark done for empty strings
-- (changed bahaviour) removed bahviour where a task could be deleted during editing  
+- (changed bahaviour) removed bahviour where a task could be deleted during editing
+- added styles based on status of task (i.e - new task, being editted task etc...)
+- (changed behaviour) a new task will appear on top of list instead of bottom, and added feature where list will scroll up to the last added task
+- added feature - a new task will have a random id to avoid same id conflicts

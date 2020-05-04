@@ -5,9 +5,8 @@
 
 /* importing required modules */
 import React, { Component } from 'react'
-import {View, TextInput, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
+import {View, TextInput, Text, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
 
-/*Importing Button Images */
 import TaskNotDone from './../assets/Task_Incomplete.png';   //icon for incomplete task
 import TaskDone from './../assets/Task_Done.png';            //icon for completed task
 import Delete_Task from './../assets/Delete_Task.png';       //icon for delete task
@@ -32,9 +31,9 @@ export default class SavedNote extends Component{
                 deleteDisable:false,
 
                 deletedTask:'flex',                                     // removes deleted tasks from view
-                backColor:'lightgray',
-                backColorTaskBox:'transparent',
-                borderLine:0,
+                backColor:(props.text==''? '#98817B':'lightgray'),      // 
+                backColorTaskBox:(props.text=='transparent'? 'lightblue':''),
+                borderLine:(props.text==''? 1:0),
                 task:props.text,                                        //temporararily stores task details passed from HomeScreen.js => ./../HomeScreen.js
             })
     }
@@ -67,8 +66,9 @@ export default class SavedNote extends Component{
                 'Edit_Status': (this.state.enableEditing? Edit_Task:Done_Editing),
                 'enableEditing': (!this.state.enableEditing),
                 'backColorTaskBox': (this.state.enableEditing ? 'transparent':'lightblue'),
-                'borderLine': (this.state.enableEditing ? 0:0.5),
-                'deleteDisable':!this.state.enableEditing,
+                'borderLine': (this.state.enableEditing ? 0:1),
+                'deleteDisable': !this.state.enableEditing,
+                'backColor': (this.state.task==''? '#E23D28':'lightgray'),
             })
     }
 
@@ -89,6 +89,7 @@ export default class SavedNote extends Component{
                 borderWidth:this.state.borderLine,
             }
         ])
+
         //Start return
         return(
             //main Container containing all children items
@@ -99,6 +100,9 @@ export default class SavedNote extends Component{
                         <TouchableHighlight disabled={this.state.markDoneDisable} onPress={() => this.change_status()} style={styles.taskdone}>
                             <Image source={this.state.Task_Status} style={styles.logo} /> 
                         </TouchableHighlight>
+                    </View>
+                    <View style={styles.header}>
+                        <Text style={styles.headertext}>taskid {'\n'} {this.props.id}</Text>
                     </View>
 
                     {/* {child} this container shows the task, editable/uneditable if allowed through edit icon ->next child element */}
@@ -131,11 +135,13 @@ const styles = StyleSheet.create({
     //main container with all child items
     maincontainer: {
         flex:1,
-        margin:8,
+        marginVertical:8,
+        marginHorizontal:2,
         shadowOpacity:0.5,
         flexDirection:'row',
         height:45,
         borderRadius:5,
+        backgroundColor:'lightgray'
     },
 
     //box containing task status icon and button
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
         flex:0.7,
         alignItems:'center',
         justifyContent:'center',
-        borderRightWidth:0.5
+        borderRightWidth:0.5,
     },
 
     //button style for task status
@@ -154,13 +160,26 @@ const styles = StyleSheet.create({
         height:12,
         width:12,
     },
+    header:{
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'black',
+    },
+    headertext:{
+        fontStyle:'italic',
+        fontSize:10,
+        color:'silver',
+        textDecorationStyle:'dotted',
+        transform:[{ rotate: '90deg'}],
+    },
 
-    //box containing task details
+    //box containing input task element so task details
     taskbox: {
         justifyContent:'center',
         paddingLeft:5,
         flex:5,
-        borderRadius:5
+        borderRightWidth:0.5,
+        borderRadius:5,
     },
 
     //button containing icon for task edit status

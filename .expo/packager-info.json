@@ -3,8 +3,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://49-rru.anonymous.logintodoapp.exp.direct",
   "packagerNgrokUrl": "https://packager.49-rru.anonymous.logintodoapp.exp.direct",
-  "ngrokPid": 8252,
+  "ngrokPid": 2336,
   "packagerPort": 19001,
-  "packagerPid": 13148,
+  "packagerPid": 10164,
   "devToolsPort": 19002
 }
