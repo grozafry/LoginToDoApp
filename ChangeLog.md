@@ -33,7 +33,8 @@ Redirects to Home  - not available yet
 - logged in home page is created
 - added support for logging in with user id and password from users.json
 - added feature where userid will be passed to after login for user header
-- improved experience where users.json will now have name, for each will have their user id and password, name will be passed on instead of userid 
+- improved experience where users.json will now have name, for each will have their user id and password, name will be passed on instead of userid
+- logout function is added 
 
 # Home Screen
 - added user header feature where clicking on profile will display option for users - (function for those aren't made yet)
@@ -61,3 +62,7 @@ Redirects to Home  - not available yet
 - added styles based on status of task (i.e - new task, being editted task etc...)
 - (changed behaviour) a new task will appear on top of list instead of bottom, and added feature where list will scroll up to the last added task
 - added feature - a new task will have a random id to avoid same id conflicts
+- added feature - ability for newly created task to add time of last update by default
+- added feature - button added which will display details of the task
+- changed behaviour - profile option will be visible by default, View Profile has been replaced by Logout button
+- Logout function has been updated
