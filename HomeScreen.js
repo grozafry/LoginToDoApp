@@ -40,15 +40,16 @@ export default class HomeScreen extends Component{
         this.setState({
             'taskid':Math.floor(Math.random()*1000)  //Each time a task is run, taskid increments by 1
         })
+        var date = new Date().toLocaleString();
 
-        Tasks['id1'].push({"key":this.state.taskid, "content":""});   // Pushing new task to list of Tasks
+        Tasks['id1'].push({"key":this.state.taskid, "content":"", "last_updated":date});   // Pushing new task to list of Tasks
         // alert(this.state.taskid)
     }    
 
     /*Beginning of render function*/
     render () {
 
-        const id = 'id1'
+        const id = this.props.user.id
         const mytask = Tasks[id]   //this is an array [{key:'', content:''},{}]
     
         //Starts Main function    
@@ -64,7 +65,7 @@ export default class HomeScreen extends Component{
                         <View style={styles.userheader}>
 
                 {/* {sub-child}Passing Name of Logged Inuser to the header */}
-                            <WelcomeUser name={this.props.name}/>  
+                            <WelcomeUser user={this.props.user} name={this.props.name} logout={this.props.logout}/>  
                         </View>
 
                 {/* {child} This gives the list of all tasks in tasks (Tasks variable)
@@ -75,7 +76,7 @@ export default class HomeScreen extends Component{
                                 onContentSizeChange={() => this.flatList.scrollToEnd({animated: false})}
                                 onLayout={() => this.flatList.scrollToEnd({animated: true})}
                                 contentInset= {{top: 120}} data={mytask} renderItem={({item}) => 
-                                <SavedNote text={item.content} id={item.key} /> }
+                                <SavedNote task={item} id={item.key} /> }
                                     />
                         </View>
                     </View>

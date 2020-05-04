@@ -105,12 +105,13 @@ export default function UserLogin() {
     }
 /*End of Password Verification */
 
+
 /*Sample Home Screen */
     if (goHome) {
         // alert(userid)
         return (
             <View style={{flex:1}}>
-                <HomeScreen name={userid}/>
+                <HomeScreen logout={reset_fields} user={Users[userid]} name={userid}/>
             </View>
         );
     }
@@ -130,11 +131,12 @@ export default function UserLogin() {
 /* reset passoword fields and hide password box (Invoked when userid is changed)*/    
     function reset_fields() {
         setPasswordEntered('');
-        pass.clear();
+        // pass.clear();
         setPassBoxVisibility('none');
         setUseridCheckResult(Userid_Check);
         setUseridCheck(true);
         setResult('');
+        setGoHome(false);
     }
 
 /*Main Return function */    
@@ -146,7 +148,7 @@ export default function UserLogin() {
             <View style={styles.headerregion}>
             
             {/*Button to go back to unsigned home screen []*/}
-                <TouchableHighlight activeOpacity={1} underlayColor="#0000CD" style={styles.backnavigation} onPress={()=> alert('Still Working on this one 😢!')}>
+                <TouchableHighlight activeOpacity={1} underlayColor="#0070bb" style={styles.backnavigation} onPress={()=> alert('Still Working on this one 😢!')}>
                     <Image style={styles.buttonthumbs} source={Back_Arrow} />
                 </TouchableHighlight>            
             </View>
@@ -156,7 +158,9 @@ export default function UserLogin() {
                 <View style={styles.mainloginbox}>
 
             {/*Heading Text*/}
-                    <Text style={styles.headerlogin}>let's get you signed in!</Text>
+                <View style={styles.headerlogin}>
+                    <Text style={styles.headerlogintext}>let's get you signed in!</Text>
+                </View>    
 
             {/*Userid Main Box*/}
                     <View style={styles.useridbox}> 
@@ -170,7 +174,7 @@ export default function UserLogin() {
             {/*Userid check button [userid_check] (with disable and variable image uri)*/}
                         <TouchableHighlight activeOpacity={1}
                             disabled={!useridCheck}
-                            underlayColor="#0000CD" onPress={userid_check} style={styles.useridverify}>
+                            underlayColor="#0070bb" onPress={userid_check} style={styles.useridverify}>
                                 <Image style={styles.buttonthumbs} source={useridCheckResult} />
                         </TouchableHighlight>
                     </View>
@@ -234,16 +238,15 @@ const styles = StyleSheet.create({
 
     mainbox:{
         flex:1,
+        marginTop:25
     },
 
     //top bar
 
     headerregion:{
         flex:1/20,
-        marginTop:20,
-        paddingVertical:10,
-        justifyContent:'center',
-        alignItems:'center',
+        marginTop:5,
+        marginHorizontal:5,
     },
 
     //Navigate Back
@@ -256,9 +259,9 @@ const styles = StyleSheet.create({
         borderRadius:17.5,
         borderWidth:0,
         shadowOpacity:0.8,
-        shadowRadius:8,
+        shadowRadius:4,
         shadowOffset:{height:0.5},
-        backgroundColor:'#0070bb',
+        backgroundColor:'white',
     },
 
     //Navtext [if added]
@@ -288,24 +291,28 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:10,
         shadowOpacity:1,
-        shadowRadius:5,
-        shadowOffset:{width:8, height:5},        
+        shadowRadius:28,
+        shadowOffset:{width:15, height:15},        
         paddingVertical:10,
     },
 
     //login heading
-
     headerlogin:{
+        marginTop:10,
+        backgroundColor:'#367588',
+        padding:7,
+        borderRadius:5,
+        shadowRadius:5,
+        shadowOpacity:0.8,
+    },
+
+    headerlogintext:{
         textAlign:'center',
         textAlignVertical:'auto',
+        fontWeight:'500',
         fontStyle:'italic',
-        color:'white',
-        fontSize:20,
-        paddingHorizontal:15,
-        borderRadius:3,
-        shadowOpacity:1,
-        shadowRadius:2,
-        shadowOffset:{height:2},        
+        color:'black',
+        fontSize:20,        
     },
 
     //Userid input container main
@@ -341,6 +348,8 @@ const styles = StyleSheet.create({
         height:35,
         width:35,
         borderRadius:17.5,
+        shadowOpacity:0.8,
+        shadowRadius:3,
     },
 
     //Password input container main
@@ -408,9 +417,9 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:'center',
         borderRadius:3,
-        shadowOpacity:0.8,
-        shadowRadius:2,
-        shadowOffset:{height:0.1},        
+        shadowOpacity:1,
+        shadowRadius:10,
+        shadowOffset:{height:-1,width:8},        
     },
 
     //styles for signup button
@@ -424,6 +433,7 @@ const styles = StyleSheet.create({
         color:'darkred',
         fontStyle:'italic',
         paddingLeft:10,
+        textDecorationStyle:"dashed"
     },
 
     //footer region

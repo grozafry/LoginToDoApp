@@ -1,10 +1,10 @@
 {
   "webpackServerPort": null,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://49-rru.anonymous.logintodoapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.49-rru.anonymous.logintodoapp.exp.direct",
-  "ngrokPid": 2336,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "packagerPort": 19001,
-  "packagerPid": 10164,
+  "packagerPid": 8276,
   "devToolsPort": 19002
 }

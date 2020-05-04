@@ -22,27 +22,16 @@ export default class WelcomeUser extends Component {
     super()
     this.state = {
       profileMenu:'flex',   //
-      shadowOpacityValue:0,
-      backColor:'transparent',
+      shadowOpacityValue:0.5,
     }
   }
 
   // This functions expands profile icon to profile options if profileMenu:'none', clicking again will undo the changes 
   profile_menu = () => {
-    if (this.state.profileMenu=='flex') {
       this.setState({
-        'profileMenu':'none',
-        'shadowOpacityValue': 1,
-        'backColor':'lightblue'
-
+        'profileMenu':(this.state.profileMenu=='flex'?'none':'flex'),
+        'shadowOpacityValue':(this.state.profileMenu=='flex'? 0:0.4)
       })
-    } else {
-      this.setState({
-        'profileMenu':'flex',
-        'shadowOpacityValue':0,
-        'backColor':'transparent'
-      })        
-    }
     
   }
 
@@ -53,7 +42,6 @@ export default class WelcomeUser extends Component {
     var elevated = StyleSheet.flatten([
       styles.header,{
         shadowOpacity:this.state.shadowOpacityValue,
-        backgroundColor:this.state.backColor
       }
     ])
 
@@ -92,8 +80,8 @@ export default class WelcomeUser extends Component {
             <Text style={styles.welcometext}>Hello {this.props.name}!</Text>
 
             {/* future - View Profile details and provide option to logout */}
-            <TouchableOpacity style={styles.profilebutton}>
-                <Text style={styles.profilebuttontext}>View Profile</Text>
+            <TouchableOpacity onPress={()=> this.props.logout()} style={styles.profilebutton}>
+                <Text style={styles.profilebuttontext}>Log Out</Text>
             </TouchableOpacity>
 
             {/* future - app settings for user*/}
@@ -121,7 +109,7 @@ export default class WelcomeUser extends Component {
 const styles = StyleSheet.create({
   maincontainer:{
     marginVertical:5,
-    none:1,
+    flex:1,
     alignItems:'center',
     backgroundColor:'transparent',
   },
@@ -129,7 +117,7 @@ const styles = StyleSheet.create({
     width:ms.width*9.5/10,
     height:50,
     borderRadius:25,
-    noneDirection:'row',
+    flexDirection:'row',
     alignItems:'center'
   },
   piccontainer:{
@@ -143,7 +131,7 @@ const styles = StyleSheet.create({
   },
   seccontainer: {
       width:ms.width*9.5/10 - 50,
-      noneDirection:'row',
+      flexDirection:'row',
       alignItems:'center',
       justifyContent:"space-between",
   },
@@ -154,7 +142,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       height:35,
-      shadowOpacity:0.5,
+      shadowOpacity:0.4,
       borderRadius:2,
       backgroundColor:'lightblue',
   },
@@ -162,7 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   settings:{
-    shadowOpacity:1,
+    shadowOpacity:0.4,
   },
   logo:{
     width:40,

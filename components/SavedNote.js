@@ -7,11 +7,13 @@
 import React, { Component } from 'react'
 import {View, TextInput, Text, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
 
+/*Importing Button Images */
 import TaskNotDone from './../assets/Task_Incomplete.png';   //icon for incomplete task
 import TaskDone from './../assets/Task_Done.png';            //icon for completed task
 import Delete_Task from './../assets/Delete_Task.png';       //icon for delete task
 import Edit_Task from './../assets/Edit_Task.png'            //icon for un-edited task
 import Done_Editing from './../assets/Edit_Done.png'     //icon during task being edited
+import Details_Icon from './../assets/Details_Icon.png'
 
 /* This function styles and maintains list of items in Tasks passed via HomeScreen.js
 also enables to delete or edit existing items in the tasks list*/
@@ -24,17 +26,17 @@ export default class SavedNote extends Component{
         super()
             this.state = ({
                 Task_Status:TaskNotDone,                                //image uri variable for task status
-                Edit_Status:(props.text=='' ? Done_Editing:Edit_Task),  // image uri handler for editing state of a task
+                Edit_Status:(props.task.content=='' ? Done_Editing:Edit_Task),  // image uri handler for editing state of a task
 
-                enableEditing:(props.text==''),            //Enables/Disables editing for tasks (a newly created note will be editable) 
-                markDoneDisable:(props.text==''),          //adds abiility to prevent marking empty notes as done
+                enableEditing:(props.task.content==''),            //Enables/Disables editing for tasks (a newly created note will be editable) 
+                markDoneDisable:(props.task.content==''),          //adds abiility to prevent marking empty notes as done
                 deleteDisable:false,
 
                 deletedTask:'flex',                                     // removes deleted tasks from view
-                backColor:(props.text==''? '#98817B':'lightgray'),      // 
-                backColorTaskBox:(props.text=='transparent'? 'lightblue':''),
-                borderLine:(props.text==''? 1:0),
-                task:props.text,                                        //temporararily stores task details passed from HomeScreen.js => ./../HomeScreen.js
+                backColor:(props.task.content==''? '#98817B':'lightgray'),      // 
+                backColorTaskBox:(props.task.content=='transparent'? 'lightblue':''),
+                borderLine:(props.task.content==''? 1:0),
+                task:props.task.content,                                        //temporararily stores task details passed from HomeScreen.js => ./../HomeScreen.js
             })
     }
     
@@ -72,6 +74,17 @@ export default class SavedNote extends Component{
             })
     }
 
+    task_details = () => {
+        var id = this.props.task.key;
+        var task = (this.state.task=='' ? '🤷🏿‍♂️':this.state.task);
+        if (this.props.task.last_updated) {
+            var du = this.props.task.last_updated
+        } else {
+            var du = 'No previous history'
+        }
+        Alert.alert('Task Details', 'Task id - ' + id + '\n' + 'Task - ' + task + '\n' + 'Last Modified - ' + du);
+    }
+
 //Start of render function (handles all styles and events in notes except adding new notes)
     render () {
 
@@ -101,8 +114,11 @@ export default class SavedNote extends Component{
                             <Image source={this.state.Task_Status} style={styles.logo} /> 
                         </TouchableHighlight>
                     </View>
-                    <View style={styles.header}>
-                        <Text style={styles.headertext}>taskid {'\n'} {this.props.id}</Text>
+
+                    <View style={styles.infobox}>
+                        <TouchableHighlight underlayColor='#7C0A02' onPress={() => this.task_details()} style={styles.detailsbutton}>
+                            <Image source={Details_Icon}style={styles.logo} />
+                        </TouchableHighlight>
                     </View>
 
                     {/* {child} this container shows the task, editable/uneditable if allowed through edit icon ->next child element */}
@@ -160,17 +176,18 @@ const styles = StyleSheet.create({
         height:12,
         width:12,
     },
-    header:{
+    infobox: {
+        width:30,
+        height:45,
+        alignItems:'center',
+        justifyContent:"center",
+    },
+    detailsbutton:{
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'black',
-    },
-    headertext:{
-        fontStyle:'italic',
-        fontSize:10,
-        color:'silver',
-        textDecorationStyle:'dotted',
-        transform:[{ rotate: '90deg'}],
+        width:23,
+        height:23,
+        borderRadius:11.5,
     },
 
     //box containing input task element so task details
@@ -188,7 +205,7 @@ const styles = StyleSheet.create({
         paddingHorizontal:3,
         alignItems:'flex-end',
         justifyContent:'center',
-        backgroundColor:'#01796F'
+        // backgroundColor:'#01796F'
     },
 
     //button containing icon for task deletion
