@@ -76,7 +76,8 @@ export default class HomeScreen extends Component{
                                 onContentSizeChange={() => this.flatList.scrollToEnd({animated: false})}
                                 onLayout={() => this.flatList.scrollToEnd({animated: true})}
                                 contentInset= {{top: 120}} data={mytask} renderItem={({item}) => 
-                                <SavedNote task={item} id={item.key} /> }
+                                <SavedNote task={item} id={item.key}  /> }
+                                keyExtractor = {item => item.key.toString()}
                                     />
                         </View>
                     </View>
