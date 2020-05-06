@@ -257,9 +257,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderRadius:17.5,
-        // shadowOpacity:0.8,
-        // shadowRadius:4,
-        // shadowOffset:{height:0.5},
+        elevation:20,
         backgroundColor:'white',
     },
 
@@ -288,11 +286,9 @@ const styles = StyleSheet.create({
         backgroundColor:'#747474',
         justifyContent:'space-between',
         alignItems:'center',
-        borderRadius:10,
-        shadowOpacity:1,
-        shadowRadius:28,
-        shadowOffset:{width:15, height:15},        
+        borderRadius:10,       
         paddingVertical:10,
+        elevation:80,
     },
 
     //login heading
@@ -301,8 +297,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#367588',
         padding:7,
         borderRadius:5,
-        shadowRadius:5,
-        shadowOpacity:0.8,
+        elevation:30,
     },
 
     headerlogintext:{
@@ -323,11 +318,9 @@ const styles = StyleSheet.create({
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'white',
         height:40,
-        shadowOpacity:1, 
-        shadowRadius:20,
-        shadowOffset:{height:5, width:15},       
         alignContent:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        elevation:25,
     },
 
     //input for userid
@@ -359,9 +352,7 @@ const styles = StyleSheet.create({
         borderRadius:4,
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'gray',
-        shadowOpacity:1, 
-        shadowRadius:20,
-        shadowOffset:{height:5, width:15},        
+        elevation:25,
     },
 
     //input for password
@@ -393,10 +384,7 @@ const styles = StyleSheet.create({
         backgroundColor:'darkblue',
         alignItems:'center',
         justifyContent:'center',
-        shadowOpacity:1, 
-        shadowRadius:10,
-        shadowOffset:{height:6, width:7},
-        
+        elevation:40,        
     },
 
     //text style for submit button
@@ -412,15 +400,11 @@ const styles = StyleSheet.create({
     signupbox:{
         marginVertical:10,
         backgroundColor:'#C9C9C9',
-        // flexDirection:'row',
-        paddingHorizontal:10,
-        // height:30,
+        padding:5,
         justifyContent:"center",
         alignItems:'center',
         borderRadius:3,
-        shadowOpacity:1,
-        shadowRadius:10,
-        shadowOffset:{height:-1,width:8},        
+        elevation:25
     },
 
     //styles for signup button

@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
         flex:1,
         marginVertical:8,
         marginHorizontal:2,
-        shadowOpacity:0.5,
         flexDirection:'row',
+        elevation:30,
         height:45,
         borderRadius:5,
         backgroundColor:'lightgray'

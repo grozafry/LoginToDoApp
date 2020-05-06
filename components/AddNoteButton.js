@@ -3,8 +3,9 @@
 //                        |=> AddNoteButton.js
 
 /* importing required modules */
-import React from 'react'
+import React, { Component } from 'react'
 import {View, Image, TouchableHighlight, StyleSheet} from 'react-native'
+import { BoxShadow } from 'react-native-shadow';
 
 /*Importing Button Images */
 import Add_Note from './../assets/Add_Notes.png' //Image uri for Add note button
@@ -14,7 +15,9 @@ import Add_Note from './../assets/Add_Notes.png' //Image uri for Add note button
 //Note:this is a function rather than a class component to avoid unneccessary extra work as it doesn't need much configuration
 
 //Start Export (imports props which is a function in UserHome => ./../userpages/UserHome.js, [add_newtask])
-export default function AddNote(props){
+export default  class AddNote extends Component {
+    render() {
+        
 
     //start return
     return(
@@ -24,7 +27,7 @@ export default function AddNote(props){
 
         {/* {child} this button adds an empty note to tasks declared in Tasks in UserHome => ./../userpages/UserHome.js
         when clicked/touched triggers add_newtask function in UserHome  [add_newtask] */}
-            <TouchableHighlight style={styles.addnotebutton} onPress={ () => props.onPress()}>
+            <TouchableHighlight style={styles.addnotebutton} onPress={ () => this.props.onPress()}>
                 <Image source={Add_Note} style={styles.thumbnail}  />                       
             </TouchableHighlight>
 
@@ -32,6 +35,7 @@ export default function AddNote(props){
         //End of main container
     )
     //End of return
+}
 }
 //End of export
 
@@ -43,6 +47,7 @@ const styles = StyleSheet.create({
         backgroundColor:'transparent',
         marginRight:5,
         marginBottom:5,
+        elevation:80,
     },
 
     //button containing add note logo 
@@ -53,13 +58,13 @@ const styles = StyleSheet.create({
         backgroundColor:'#0070bb',
         alignItems:'center',
         justifyContent:'center',
+        elevation:10,
     },
 
     //image style
     thumbnail:{
         width:50,
         height:50,
-        shadowOpacity:0.5,
     },
 })
 

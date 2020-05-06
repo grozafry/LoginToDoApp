@@ -22,7 +22,7 @@ export default class WelcomeUser extends Component {
     super()
     this.state = {
       profileMenu:'flex',   //
-      shadowOpacityValue:0.5,
+      elevationValue:50,
       goToSettings:false,
     }
   }
@@ -31,7 +31,7 @@ export default class WelcomeUser extends Component {
   profile_menu = () => {
       this.setState({
         'profileMenu':(this.state.profileMenu=='flex'?'none':'flex'),
-        'shadowOpacityValue':(this.state.profileMenu=='flex'? 0:0.4)
+        'elevationValue':(this.state.profileMenu=='flex'? 0:50)
       })
     
   }
@@ -42,14 +42,14 @@ export default class WelcomeUser extends Component {
     //this varible enables header style be affected by touch events 
     var elevated = StyleSheet.flatten([
       styles.header,{
-        shadowOpacity:this.state.shadowOpacityValue,
+        elevation:this.state.elevationValue,
       }
     ])
 
     //this variable enables profile container style be affected by touch events
     var boxContainer = StyleSheet.flatten([
       styles.piccontainer,{
-        shadowOpacity:this.state.shadowOpacityValue,        
+        elevation:this.state.elevationValue,        
       }
     ])
 
@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       height:35,
-      shadowOpacity:0.4,
       borderRadius:2,
       backgroundColor:'lightblue',
   },
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   settings:{
-    shadowOpacity:0.4,
+    elevation:30,
   },
   logo:{
     width:40,
