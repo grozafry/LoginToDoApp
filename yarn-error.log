@@ -1,0 +1,56 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\aadar\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;%APPDATA%\npm;C:\Program Files\Microsoft VS Code\bin;C:\Users\aadar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts;C:\cygwin64\bin;C:\adb\platform-tools;C:\Users\aadar\AppData\Local\Microsoft\WindowsApps;C:\Users\aadar\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.16.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: connect EHOSTUNREACH 104.16.22.35:443
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1137:16)
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "expo": "~37.0.3",
+      "react": "~16.9.0",
+      "react-dom": "~16.9.0",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+      "react-native-flip-countdown-timer": "0.0.3",
+      "react-native-image-filter-kit": "^0.7.1",
+      "react-native-keyboard-aware-scroll-view": "^0.9.1",
+      "react-native-radial-gradient": "^1.0.6",
+      "react-native-sk-countdown": "latest",
+      "react-native-svg": "11.0.1",
+      "react-native-web": "~0.11.7",
+      "rn-gradients": "0.0.2",
+      "expo-font": "~8.1.0"
+    },
+    "devDependencies": {
+      "babel-preset-expo": "~8.1.0",
+      "@babel/core": "^7.8.6"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

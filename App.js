@@ -14,7 +14,7 @@ import Hide_Pass from './assets/Hide_Pass.png';
 import Verified_Userid from './assets/Verified_Userid.png';
 
 /* Importing functions*/
-import HomeScreen from './HomeScreen';
+import UserHome from './userpages/UserHome';
 
 /* Importing list of users*/
 import Users from './users.json'
@@ -111,7 +111,7 @@ export default function UserLogin() {
         // alert(userid)
         return (
             <View style={{flex:1}}>
-                <HomeScreen logout={reset_fields} user={Users[userid]} name={userid}/>
+                <UserHome logout={reset_fields} user={Users[userid]} name={userid}/>
             </View>
         );
     }
@@ -180,7 +180,7 @@ export default function UserLogin() {
                     </View>
 
             {/*Text returning error messages in userid verification*/}
-                    <Text style={{color:'darkred', fontStyle:'italic', display:registeredUserid}}>{result}</Text>
+                    <Text style={{color:'darkred', fontStyle:'italic', display:registeredUserid, marginVertical:10}}>{result}</Text>
             
             {/*(Container used for hiding passwordBox until userid is verified)*/}
                     <View style={{display:passBoxVisibility}}>
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         marginHorizontal:5,
     },
 
-    //Navigate Back
+    //Navigate Back button
 
     backnavigation:{
         height:35,
@@ -257,10 +257,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderRadius:17.5,
-        borderWidth:0,
-        shadowOpacity:0.8,
-        shadowRadius:4,
-        shadowOffset:{height:0.5},
+        // shadowOpacity:0.8,
+        // shadowRadius:4,
+        // shadowOffset:{height:0.5},
         backgroundColor:'white',
     },
 
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
 
     mainloginbox: {
         width:Dimensions.get('window').width*8/9,
-        height:Dimensions.get('window').height*4/9,
+        minHeight:230,
         backgroundColor:'#747474',
         justifyContent:'space-between',
         alignItems:'center',
@@ -298,7 +297,7 @@ const styles = StyleSheet.create({
 
     //login heading
     headerlogin:{
-        marginTop:10,
+        marginVertical:10,
         backgroundColor:'#367588',
         padding:7,
         borderRadius:5,
@@ -318,14 +317,15 @@ const styles = StyleSheet.create({
     //Userid input container main
 
     useridbox:{
+        marginVertical:10,
         borderRadius:4,
         flexDirection:'row',
         width:Dimensions.get('window').width*7.5/9,
         backgroundColor:'white',
         height:40,
         shadowOpacity:1, 
-        shadowRadius:5,
-        shadowOffset:{height:0.1},       
+        shadowRadius:20,
+        shadowOffset:{height:5, width:15},       
         alignContent:'center',
         justifyContent:'center'
     },
@@ -333,36 +333,35 @@ const styles = StyleSheet.create({
     //input for userid
 
     inputuserid:{
-        width:Dimensions.get('window').width*7.3/9 - 35,
-        height:40,
+        borderRadius:4,
+        borderRightWidth:0.5,
+        borderStyle:'dashed',
+        width:Dimensions.get('window').width*7.5/9 - 45,
         paddingHorizontal:10,
-        backgroundColor:'white',
+        justifyContent:'flex-start',
     },
 
     //button for userid verification
 
     useridverify:{
-        justifyContent:"center",
-        alignItems:'center',
-        marginTop:2.5,
+        marginVertical:2.5,
+        marginHorizontal: 5,   
         height:35,
         width:35,
         borderRadius:17.5,
-        shadowOpacity:0.8,
-        shadowRadius:3,
     },
 
     //Password input container main
 
     passwordbox:{
+        marginVertical:10,
         flexDirection:'row',
         borderRadius:4,
         width:Dimensions.get('window').width*7.5/9,
-        height:40,
         backgroundColor:'gray',
         shadowOpacity:1, 
-        shadowRadius:5,
-        shadowOffset:{height:0.1},        
+        shadowRadius:20,
+        shadowOffset:{height:5, width:15},        
     },
 
     //input for password
@@ -389,13 +388,14 @@ const styles = StyleSheet.create({
     //button for credential submission
 
     submitbutton:{
+        marginVertical:10,
         height:25,
         backgroundColor:'darkblue',
         alignItems:'center',
         justifyContent:'center',
         shadowOpacity:1, 
-        shadowRadius:5,
-        shadowOffset:{height:0.1},
+        shadowRadius:10,
+        shadowOffset:{height:6, width:7},
         
     },
 
@@ -410,10 +410,11 @@ const styles = StyleSheet.create({
     //Signup container main
 
     signupbox:{
+        marginVertical:10,
         backgroundColor:'#C9C9C9',
-        flexDirection:'row',
+        // flexDirection:'row',
         paddingHorizontal:10,
-        height:30,
+        // height:30,
         justifyContent:"center",
         alignItems:'center',
         borderRadius:3,
@@ -425,6 +426,7 @@ const styles = StyleSheet.create({
     //styles for signup button
 
     signupbutton:{
+        marginVertical:5
     },
 
     //text style for signup button

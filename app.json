@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "experimental-login",
-    "slug": "experimental-login",
+    "name": "ToDoApp",
+    "slug": "ToDoApp",
     "platforms": [
       "ios",
       "android",

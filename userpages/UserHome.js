@@ -1,31 +1,24 @@
-//App.js => HomeScreen.js
+//App.js => UserHome.js
 
 /*This is an after login Component */
 
 /* importing required modules */
 import React, {Component} from 'react'
-import {View, FlatList, Platform, KeyboardAvoidingView, StyleSheet} from 'react-native'
+import {View, FlatList, Dimensions, Platform, KeyboardAvoidingView, StyleSheet} from 'react-native'
 
 //Importing functions
-import SavedNote from './components/SavedNote'    //Function resposible for maintaining notes (editing, deleting, checking)
-import WelcomeUser from './components/WelcomeUser'  //Header for logged in user [View Profile] - incomplete, [settings] - incomplete
-import AddNoteButton from './components/AddNoteButton'  //Button to add notes
+import SavedNote from '../components/SavedNote'    //Function resposible for maintaining notes (editing, deleting, checking)
+import WelcomeUser from '../components/WelcomeUser'  //Header for logged in user [View Profile] - incomplete, [settings] - incomplete
+import AddNoteButton from '../components/AddNoteButton'  //Button to add notes
 
 //imprting list of tasks
-import Tasks from './tasks.json'
-
-//New function
-const Task_ID = () => { 
-    var n0 =1; 
-    for(var i=1; i<nd; i++) n0 +='0'; 
-    return Math.floor((1*n0) + Math.random() * (9*n0)); 
-   }
+import Tasks from '../tasks.json'
 
 
- /*This is the Home Screen Component - accessible after user inputs correct id and password*/
+ /*This is the User Home Component - accessible after user inputs correct id and password*/
 
  //Starts export
-export default class HomeScreen extends Component{
+export default class UserHome extends Component{
     
     //Initializing initial states of the system
     constructor() {
@@ -42,7 +35,7 @@ export default class HomeScreen extends Component{
         })
         var date = new Date().toLocaleString();
 
-        Tasks['id1'].push({"key":this.state.taskid, "content":"", "last_updated":date});   // Pushing new task to list of Tasks
+        Tasks[this.props.user.id].push({"key":this.state.taskid, "content":"", "last_updated":date});   // Pushing new task to list of Tasks
         // alert(this.state.taskid)
     }    
 
@@ -118,6 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor:'steelblue'
     },
     flatlistcontainer: {
+        // height: Dimensions.get('window').height,
     },
     addnotes: {
         height:0,

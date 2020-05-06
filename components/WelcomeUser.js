@@ -1,6 +1,6 @@
-//App.js => HomeScreen.js => Welcome.js
+//App.js => UserHome.js => Welcome.js
 
-/* This is Welcome header, part of After Login Screen, it staays on top, support styles are mentioned in HomeScreen.js => ./../HomeScreen.js*/
+/* This is Welcome header, part of After Login Screen, it staays on top, support styles are mentioned in UserHome.js => ../userpages/UserHome.js */
 
 /* importing required modules */
 import React, { Component } from 'react'
@@ -23,6 +23,7 @@ export default class WelcomeUser extends Component {
     this.state = {
       profileMenu:'flex',   //
       shadowOpacityValue:0.5,
+      goToSettings:false,
     }
   }
 
@@ -74,7 +75,7 @@ export default class WelcomeUser extends Component {
           </TouchableOpacity>
 
           {/* {child} this container holds profile menu and their attributes including visibility ^profile_menu,
-          returns username extracted from Users.json => ./../users.json, passed via App.js -> HomeScreen.js -> WelcomUser.js
+          returns username extracted from Users.json => ./../users.json, passed via App.js -> UserHome.js -> WelcomeUser.js
           the touch events for this buttons haven't been configured yet */}
           <View style={menuContainter}>
             <Text style={styles.welcometext}>Hello {this.props.name}!</Text>
@@ -85,7 +86,7 @@ export default class WelcomeUser extends Component {
             </TouchableOpacity>
 
             {/* future - app settings for user*/}
-            <TouchableOpacity style={styles.settings}>
+            <TouchableOpacity style={styles.settings} onPress={() => {this.setState({'goToSettings':true})}}>
                 <Image source={Settings_User} style={styles.logo} />
             </TouchableOpacity>
 

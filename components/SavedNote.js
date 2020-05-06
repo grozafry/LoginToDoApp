@@ -1,11 +1,11 @@
-//App.js => HomeScreen.js => Welcome.js
+//App.js => UserHome.js => Welcome.js
 //                       |=> SavedNote.js
 
 /* This function maintains flatlist of tasks stored in tasks.json => ./../tasks.json and those added using AddNoteButton => ./AddNoteButton.js*/
 
 /* importing required modules */
 import React, { Component } from 'react'
-import {View, TextInput, Text, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
+import {View, TextInput, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
 
 /*Importing Button Images */
 import TaskNotDone from './../assets/Task_Incomplete.png';   //icon for incomplete task
@@ -15,7 +15,7 @@ import Edit_Task from './../assets/Edit_Task.png'            //icon for un-edite
 import Done_Editing from './../assets/Edit_Done.png'     //icon during task being edited
 import Details_Icon from './../assets/Details_Icon.png'
 
-/* This function styles and maintains list of items in Tasks passed via HomeScreen.js
+/* This function styles and maintains list of items in Tasks passed via UserHome.js
 also enables to delete or edit existing items in the tasks list*/
 
 //Start of export
@@ -32,11 +32,11 @@ export default class SavedNote extends Component{
                 markDoneDisable:(props.task.content==''),          //adds abiility to prevent marking empty notes as done
                 deleteDisable:false,
 
-                deletedTask:'flex',                                     // removes deleted tasks from view
+                deletedTask:(props.task.content==undefined? 'none':'flex'),                                     // removes deleted tasks from view
                 backColor:(props.task.content==''? '#98817B':'lightgray'),      // 
-                backColorTaskBox:(props.task.content=='transparent'? 'lightblue':''),
+                backColorTaskBox:(props.task.content==''? 'lightblue':'transparent'),
                 borderLine:(props.task.content==''? 1:0),
-                task:props.task.content,                                        //temporararily stores task details passed from HomeScreen.js => ./../HomeScreen.js
+                task:props.task.content,                                        //temporararily stores task details passed from UserHome.js => ./../userpages/UserHome.js
             })
     }
     
@@ -51,10 +51,17 @@ export default class SavedNote extends Component{
     // This function prompts user confirmation if user request deletion of a task
     delete_task = () => {
         if (this.state.task) {
-            Alert.alert('Delete?', "Are you sure you want to delete the task " + this.state.task + '?', [{text:'Confirm', onPress: () => this.setState({
+            Alert.alert('Delete?', "Are you sure you want to delete the task " + this.state.task + '?', [{text:'Confirm', onPress: () => {this.setState({
                 'deletedTask':'none'
-            })}, {text:'Deny',}], {cancelable:true} ) 
+                
+            });
+            delete this.props.task.content;
+            delete this.props.task.id;
+            }
+        }, {text:'Deny',}], {cancelable:true} ) 
         } else {
+            delete this.props.task.content;
+            delete this.props.task.id;
             this.setState({
             'deletedTask':'none'
         })            
@@ -176,12 +183,16 @@ const styles = StyleSheet.create({
         height:12,
         width:12,
     },
+
+    //Infobox container box for task
     infobox: {
         width:30,
         height:45,
         alignItems:'center',
         justifyContent:"center",
     },
+
+    //button for infobox
     detailsbutton:{
         justifyContent:'center',
         alignItems:'center',
@@ -196,7 +207,7 @@ const styles = StyleSheet.create({
         paddingLeft:5,
         flex:5,
         borderRightWidth:0.5,
-        borderRadius:5,
+        borderColor:'darkblue'
     },
 
     //button containing icon for task edit status

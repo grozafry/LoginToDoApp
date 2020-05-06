@@ -1,4 +1,4 @@
-//App.js => HomeScreen.js => Welcome.js
+//App.js => UserHome.js => Welcome.js
 //                        |=> SavedNote.js
 //                        |=> AddNoteButton.js
 
@@ -13,7 +13,7 @@ import Add_Note from './../assets/Add_Notes.png' //Image uri for Add note button
 
 //Note:this is a function rather than a class component to avoid unneccessary extra work as it doesn't need much configuration
 
-//Start Export (imports props which is a function in HomeScreen => ./../HomeScreen,js, [add_newtask])
+//Start Export (imports props which is a function in UserHome => ./../userpages/UserHome.js, [add_newtask])
 export default function AddNote(props){
 
     //start return
@@ -22,8 +22,8 @@ export default function AddNote(props){
         // this contains add note button
         <View style={styles.maincontainer}>
 
-        {/* {child} this button adds an empty note to tasks declared in Tasks in HomeScreen => ./../HomeScreen.js
-        when clicked/touched triggers add_newtask function in HomeScreen  [add_newtask] */}
+        {/* {child} this button adds an empty note to tasks declared in Tasks in UserHome => ./../userpages/UserHome.js
+        when clicked/touched triggers add_newtask function in UserHome  [add_newtask] */}
             <TouchableHighlight style={styles.addnotebutton} onPress={ () => props.onPress()}>
                 <Image source={Add_Note} style={styles.thumbnail}  />                       
             </TouchableHighlight>
@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
         width:60,
         borderRadius:30,
         backgroundColor:'#0070bb',
-        paddingLeft:5,
-        paddingTop:5,
         shadowOpacity:0.8,
+        alignItems:'center',
+        justifyContent:'center',
     },
 
     //image style

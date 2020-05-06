@@ -1,18 +1,16 @@
 ## Implementing consistency across all function
-- all export function as AbCd
-- all functions to be used in form of ab_cd
-- all long variables in format of abCd
-- all function imports in format of AbCd
-- all image file imports as Ab_Cd
-- all file (- images) imports as Abcd
-- all style elements as abcd
-- all short variables as abcd 
-
-# backButton
-Redirects to Home  - not available yet
-
-- Added Shadow and on touch color
-- Also added default prompt
+```
+-----------------------------------------
+All export function as AbCd              
+All functions to be used in form of ab_cd
+All long variables in format of abCd     
+All function imports in format of AbCd   
+All image file imports as Ab_Cd          
+All file (- images) imports as Abcd      
+All style elements as abcd                
+All short variables as abcd              
+-----------------------------------------
+```
 
 # Main Login Box
 - added shadows,
@@ -21,7 +19,7 @@ Redirects to Home  - not available yet
 - added seperate prompts for incorrect email and no email is entered.
 - added feature where entering wrong or no email and sending email check request will not work after 5 attempts.
 - added feature where editing email field after verification will hide the password field
--  (fix) added feature where editing email field after verification will also reset the password field.
+- (fix) added feature where editing email field after verification will also reset the password field.
 - added password view property where clicking on view will show your password.
 - (fix) fized issue where old entered password remained even when password entry field appeared empty.
 - adjustment of logos
@@ -66,3 +64,5 @@ Redirects to Home  - not available yet
 - added feature - button added which will display details of the task
 - changed behaviour - profile option will be visible by default, View Profile has been replaced by Logout button
 - Logout function has been updated
+- added feature - user specific tasks
+- (fix) fixed issue where user specific task threw error
