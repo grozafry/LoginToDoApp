@@ -5,7 +5,6 @@
 /* importing required modules */
 import React, { Component } from 'react'
 import {View, Image, TouchableHighlight, StyleSheet} from 'react-native'
-import { BoxShadow } from 'react-native-shadow';
 
 /*Importing Button Images */
 import Add_Note from './../assets/Add_Notes.png' //Image uri for Add note button
