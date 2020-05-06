@@ -71,7 +71,6 @@ export default class UserHome extends Component{
                             showsVerticalScrollIndicator={false} style={styles.flatlistcontainer}
                             ref={ref => this.tasklist = ref}
                             onContentSizeChange={() => this.tasklist.scrollToEnd({animated: true})}
-                            // onLayout={() => this.tasklist.scrollToEnd({animated: true})}                            
                             >
                             <FlatList showsVerticalScrollIndicator={false}
                                 data={mytask} renderItem={({item}) => 
