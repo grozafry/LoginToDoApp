@@ -5,10 +5,6 @@
   "packagerNgrokUrl": null,
   "ngrokPid": null,
   "packagerPort": 19001,
-<<<<<<< HEAD
   "packagerPid": 18040,
-=======
-  "packagerPid": 9032,
->>>>>>> bc96a26109b82b5271e12e9ce0facdeba5a46b61
   "devToolsPort": 19002
 }
