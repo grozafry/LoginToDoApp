@@ -1,7 +1,5 @@
 node_modules
-<<<<<<< HEAD
 .expo
-=======
 android
 ios
->>>>>>> bc96a26109b82b5271e12e9ce0facdeba5a46b61
+.idea

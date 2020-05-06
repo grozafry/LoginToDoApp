@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     maincontainer:{
         backgroundColor:'transparent',
         marginRight:5,
-        marginBottom:65,
+        marginBottom:5,
     },
 
     //button containing add note logo 
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         width:60,
         borderRadius:30,
         backgroundColor:'#0070bb',
-        shadowOpacity:0.8,
         alignItems:'center',
         justifyContent:'center',
     },

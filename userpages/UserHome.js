@@ -4,7 +4,10 @@
 
 /* importing required modules */
 import React, {Component} from 'react'
-import {View, FlatList, Dimensions, Platform, KeyboardAvoidingView, StyleSheet} from 'react-native'
+import {View, FlatList, ScrollView ,Platform, KeyboardAvoidingView, StyleSheet} from 'react-native'
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']); 
 
 //Importing functions
 import SavedNote from '../components/SavedNote'    //Function resposible for maintaining notes (editing, deleting, checking)
@@ -64,14 +67,20 @@ export default class UserHome extends Component{
                 {/* {child} This gives the list of all tasks in tasks (Tasks variable)
                     this lists is optimised with Flatlist componenet and SavedNotes function => ./component/SavedNote.js
                     included function - [delete notes, edit notes, check notes] */}
-                        <View style={styles.flatlistcontainer}>
-                            <FlatList inverted ref={ref => this.flatList = ref} showsVerticalScrollIndicator={false}
-                                onContentSizeChange={() => this.flatList.scrollToEnd({animated: false})}
-                                onLayout={() => this.flatList.scrollToEnd({animated: true})}
-                                contentInset= {{top: 120}} data={mytask} renderItem={({item}) => 
+                        <ScrollView  
+                            showsVerticalScrollIndicator={false} style={styles.flatlistcontainer}
+                            ref={ref => this.tasklist = ref}
+                            onContentSizeChange={() => this.tasklist.scrollToEnd({animated: true})}
+                            // onLayout={() => this.tasklist.scrollToEnd({animated: true})}                            
+                            >
+                            <FlatList showsVerticalScrollIndicator={false}
+                                data={mytask} renderItem={({item}) => 
                                 <SavedNote task={item} id={item.key} /> }
+                                keyExtractor={item => item.key.toString()}
                                     />
-                        </View>
+
+                            <View style={styles.extraspace}></View>
+                        </ScrollView>
                     </View>
 
                 {/* Second Container Add notes function container => ./components/AddNoteButton.js  */}                    
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
     keyboardavoid: {
         flex:1,
         marginTop:10,
-        paddingVertical:10,
+        paddingTop:10,
     },
 
     //first Container to Include children items
@@ -111,11 +120,16 @@ const styles = StyleSheet.create({
         backgroundColor:'steelblue'
     },
     flatlistcontainer: {
-        // height: Dimensions.get('window').height,
+        // flex:1,
+        backgroundColor:'transparent',
+        // paddingBottom:80
+    },
+    extraspace:{
+        height:70
     },
     addnotes: {
-        height:0,
+        height:0.0001,
         alignItems:'flex-end',
-        justifyContent:'flex-end'
+        justifyContent:'flex-end',
     },
 })

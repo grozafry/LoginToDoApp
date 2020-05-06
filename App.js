@@ -23,7 +23,7 @@ import Users from './users.json'
 export default function UserLogin() {
 
     /*List of Messages */
-    var messages = ["seems you're not registered with us!", "Please enter a userid address first!", "Too Many Failed attempts, Please Try Again in "]
+    var messages = ["seems you're not registered with us!", "Please enter a userid  first!", "Too Many Failed attempts, Please Try Again in "]
     
     /*   Unused Variables for future Usage*
     let [goBack, setGoBack] = useState(false);

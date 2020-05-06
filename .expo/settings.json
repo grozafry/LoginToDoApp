@@ -1,13 +1,8 @@
 {
-  "urlRandomness": "3f-f2t",
-  "hostType": "lan",
-  "lanType": "ip",
   "dev": true,
   "minify": false,
-<<<<<<< HEAD
-  "urlRandomness": "kb-bri",
-  "https": true
-=======
-  "https": false
->>>>>>> bc96a26109b82b5271e12e9ce0facdeba5a46b61
+  "https": true,
+  "hostType": "lan",
+  "lanType": "ip",
+  "urlRandomness": "s4-rpu"
 }

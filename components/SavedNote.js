@@ -5,7 +5,7 @@
 
 /* importing required modules */
 import React, { Component } from 'react'
-import {View, TextInput, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
+import {View, TextInput, Text, Alert, Image, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native'
 
 /*Importing Button Images */
 import TaskNotDone from './../assets/Task_Incomplete.png';   //icon for incomplete task
@@ -34,7 +34,7 @@ export default class SavedNote extends Component{
 
                 deletedTask:(props.task.content==undefined? 'none':'flex'),                                     // removes deleted tasks from view
                 backColor:(props.task.content==''? '#98817B':'lightgray'),      // 
-                backColorTaskBox:(props.task.content==''? 'lightblue':'transparent'),
+                backColorTaskBox:(props.task.content=='transparent'? 'lightblue':''),
                 borderLine:(props.task.content==''? 1:0),
                 task:props.task.content,                                        //temporararily stores task details passed from UserHome.js => ./../userpages/UserHome.js
             })
@@ -51,13 +51,13 @@ export default class SavedNote extends Component{
     // This function prompts user confirmation if user request deletion of a task
     delete_task = () => {
         if (this.state.task) {
-            Alert.alert('Delete?', "Are you sure you want to delete the task " + this.state.task + '?', [{text:'Confirm', onPress: () => {this.setState({
+            Alert.alert('Delete?', "Are you sure you want to delete the task " + this.state.task + '?', [{text:'Confirm', onPress: () =>{ this.setState({
                 'deletedTask':'none'
                 
             });
             delete this.props.task.content;
-            delete this.props.task.id;
-            }
+            delete this.props.task.id;            
+        }
         }, {text:'Deny',}], {cancelable:true} ) 
         } else {
             delete this.props.task.content;
