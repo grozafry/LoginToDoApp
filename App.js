@@ -131,7 +131,6 @@ export default function UserLogin() {
 /* reset passoword fields and hide password box (Invoked when userid is changed)*/    
     function reset_fields() {
         setPasswordEntered('');
-        // pass.clear();
         setPassBoxVisibility('none');
         setUseridCheckResult(Userid_Check);
         setUseridCheck(true);
@@ -189,11 +188,10 @@ export default function UserLogin() {
                         <View style={styles.passwordbox}>
 
             {/*Password Input Box*/}
-                            <TextInput secureTextEntry={!passwordView} style={styles.inputpassword} placeholderTextColor={'gray'}
+                            <TextInput paddingLeft={10} secureTextEntry={!passwordView} style={styles.inputpassword} placeholderTextColor={'gray'}
                                     placeholder={'Input Your Password Here!'}
                                     onChangeText={passwordEntered => setPasswordEntered(passwordEntered)}
                                     defaultValue={passwordEntered}
-                                    ref={input => { pass = input }}
                                     />
 
             {/*Button for viewing password [password_visibility] (has a variable image uri)*/}
