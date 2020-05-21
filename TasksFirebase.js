@@ -1,7 +1,35 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, FlatList, TextInput} from 'react-native';
 import firebase from 'firebase';
-import { FlatList, TextInput } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+//import { } from 'react-native-gesture-handler';
+
+
+const MButton = ({val, tasks, config}) => {
+    
+    function getKeyByValue(object, value) { 
+        return Object.keys(object).find(key => object[key] === value); 
+    }
+
+    return(
+        <View>
+        <Button title="Delete" onPress={
+            () => {
+                tkey = getKeyByValue(tasks, val)
+
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(config);
+                 }
+                 let c = 'tasks/Suraj/' + tkey
+                 firebase.database().ref(c).remove(() => console.log('Successfully deleted!')).catch((error) => console.log(error))
+        
+
+
+            }
+        } />
+        </View>
+    )
+}
 
 export default function Main(){
   //  id = "Suraj"        //Main function will receive this id from login page
@@ -29,6 +57,7 @@ export default function Main(){
    
     const [tasks, setTasks] = useState([])
     const [tex, setTex] = useState('')
+   // const [keey, setKeey] = useState('')
     
    
     useEffect(() => {
@@ -66,11 +95,12 @@ export default function Main(){
             let a = data.toJSON()
            // mylen = Object.keys(a).length
            // a[mylen*100000000 + Math.floor(Math.random() * 10000)] = tex
-            a[Date.now().toString()] = tex
+            let mykey = Date.now().toString() 
+            a[mykey] = tex
             firebase.database().ref('tasks/Suraj').set(a).then(
                () => {
                    console.log("New note added successfully")
-                   //Now refresh again to retreive newly added note in the list
+                   //Now refresh again to retrieve newly added note in the list
                    refre()
                    //Reset value of textInput
                    setTex('')
@@ -103,7 +133,34 @@ export default function Main(){
             
             <FlatList 
                 data={Object.values(tasks)}
-                renderItem={({item}) => <Text>{item}</Text>}
+                renderItem={
+                    ({item}) =>  ( 
+                        <View style={{ flexDirection:'row'}}> 
+                            <Text style={{flex:3}} >{item}</Text> 
+                           {/* <MButton style={{flex:1}} onPress={() => console.log("Delete pressed!")} val={item} tasks={tasks} config={config} />  */}
+                            <TouchableOpacity style={{flex:1}} onPress={
+                                () => {
+
+                                    function getKeyByValue(object, value) { 
+                                        return Object.keys(object).find(key => object[key] === value); 
+                                    }
+
+                                    tkey = getKeyByValue(tasks, item)
+                    
+                                    if (!firebase.apps.length) {
+                                        firebase.initializeApp(config);
+                                     }
+                                     let c = 'tasks/Suraj/' + tkey
+                                     firebase.database().ref(c).remove(() => console.log('Successfully deleted!')).catch((error) => console.log(error))
+                            
+                                     refre()
+                                }
+                            }>
+                                <Text>Delete</Text>
+                            </TouchableOpacity>
+                        </View> 
+                    ) 
+                }
                 keyExtractor={() => Date.now().toString() + Math.random()} 
                 />
 

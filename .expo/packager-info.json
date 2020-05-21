@@ -3,8 +3,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://2u-8iu.anonymous.awesomeproject.exp.direct",
   "packagerNgrokUrl": "https://packager.2u-8iu.anonymous.awesomeproject.exp.direct",
-  "ngrokPid": 5620,
+  "ngrokPid": 3680,
   "packagerPort": 19001,
-  "packagerPid": 7456,
+  "packagerPid": 7648,
   "devToolsPort": 19002
 }
